@@ -1,11 +1,17 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import ValentineModal from './components/ValentineModal';
-import { Heart } from 'lucide-react';
+import { Heart, Upload } from 'lucide-react';
+import { useClientImagePreview } from './hooks/useClientImagePreview';
 
 function App() {
   const [noClickCount, setNoClickCount] = useState(0);
   const [showError, setShowError] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const { previewSrc, error: imageError, isLoading, handleFileSelect } = useClientImagePreview(
+    '/assets/generated/couple-photo.dim_1200x1200.jpg'
+  );
 
   const handleNoClick = () => {
     setNoClickCount((prev) => prev + 1);
@@ -15,6 +21,19 @@ function App() {
 
   const handleYesClick = () => {
     setShowModal(true);
+  };
+
+  const handleImagePickerClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0] || null;
+    handleFileSelect(file);
+    // Reset input value to allow selecting the same file again
+    if (e.target) {
+      e.target.value = '';
+    }
   };
 
   // Calculate Yes button scale based on no clicks
@@ -45,18 +64,56 @@ function App() {
               </div>
             </div>
 
-            {/* Couple photo */}
-            <div className="flex justify-center mb-8 pointer-events-none">
-              <img
-                src="/assets/generated/couple-photo.dim_1200x1200.jpg"
-                alt="Our couple photo"
-                className="w-full max-w-sm h-auto rounded-2xl shadow-xl border-4 border-rose-200 dark:border-rose-700 object-cover"
-              />
+            {/* Couple photo with image picker */}
+            <div className="flex justify-center mb-4">
+              <div className="relative group">
+                <img
+                  src={previewSrc || '/assets/generated/couple-photo.dim_1200x1200.jpg'}
+                  alt="Our couple photo"
+                  className="w-full max-w-sm h-auto rounded-2xl shadow-xl border-4 border-rose-200 dark:border-rose-700 object-cover"
+                />
+                {/* Image picker overlay button */}
+                <button
+                  onClick={handleImagePickerClick}
+                  disabled={isLoading}
+                  className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl cursor-pointer disabled:cursor-not-allowed"
+                  aria-label="Choose a different photo"
+                >
+                  <div className="flex flex-col items-center gap-2 text-white">
+                    <Upload className="w-8 h-8" />
+                    <span className="text-sm font-semibold">
+                      {isLoading ? 'Loading...' : 'Choose Photo'}
+                    </span>
+                  </div>
+                </button>
+                {/* Hidden file input */}
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="image/*"
+                  onChange={handleFileChange}
+                  className="hidden"
+                  aria-label="Select image file"
+                />
+              </div>
             </div>
+
+            {/* Image error message */}
+            {imageError && (
+              <div
+                className="mb-6 px-4 py-3 rounded-lg bg-rose-100 dark:bg-rose-900/50 border border-rose-300 dark:border-rose-700 animate-in fade-in slide-in-from-top-2 duration-300"
+                role="alert"
+                aria-live="polite"
+              >
+                <p className="text-sm text-rose-700 dark:text-rose-300 font-medium">
+                  {imageError}
+                </p>
+              </div>
+            )}
 
             {/* Question text */}
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-8 text-rose-900 dark:text-rose-100 leading-tight">
-              annammooo will you be my valentine
+              Annammooo will you be my valentine
             </h1>
 
             {/* Error message */}

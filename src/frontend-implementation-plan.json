@@ -1,43 +1,39 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Add couple photo static asset to homepage question card",
+  "title": "Success modal image picker + homepage name capitalization",
   "requirements": [
     {
-      "id": "REQ-6",
-      "summary": "Display a responsive couple photo inside the homepage main question card without interfering with Yes/No interactions.",
+      "id": "REQ-10",
+      "summary": "Capitalize the name in the homepage question headline to \"Annammooo\" without changing any other text.",
       "acceptanceCriteria": [
-        "The homepage displays a couple photo within the main card alongside the existing heart icon, question text, and buttons.",
-        "The photo is responsive (looks good on mobile and desktop), maintains aspect ratio, and does not overflow the card.",
-        "The photo does not block clicks on the Yes/No buttons at any escalation stage.",
-        "An accessible alt attribute is provided for the couple photo image."
+        "The homepage headline renders exactly: \"Annammooo will you be my valentine\" (same wording as before, with only the name’s capitalization changed).",
+        "No other user-facing text is changed as part of this requirement."
       ],
       "file_operations": [
         {
           "path": "frontend/src/App.tsx",
           "operation": "modify",
-          "description": "Add an <img> to the question card (between the heading/error area and the buttons) referencing the static asset at frontend/public/assets/generated/couple-photo.dim_1200x1200.jpg; style it to match the Valentine theme (rounded corners, subtle border/shadow), keep it responsive (preserve aspect ratio, constrain max height/width so it never overflows), and ensure it cannot intercept pointer events so Yes/No remain clickable even when the Yes button scales."
+          "description": "Update the homepage <h1> question text to replace \"annammooo\" with \"Annammooo\" while keeping the rest of the sentence unchanged."
         }
       ]
     },
     {
-      "id": "REQ-7",
-      "summary": "Add the couple photo as a static generated asset and reference it directly from the homepage UI.",
+      "id": "REQ-11",
+      "summary": "Add a client-side image upload/picker to the success modal with preview and inline validation errors, mirroring homepage behavior without interfering with it.",
       "acceptanceCriteria": [
-        "A new image file exists at `frontend/public/assets/generated/couple-photo.dim_1200x1200.jpg`.",
-        "The homepage references the photo via a direct public path (e.g., `/assets/generated/couple-photo.dim_1200x1200.jpg`).",
-        "No backend code is added or changed to support serving this image."
+        "When the success modal is open, the image area in the modal provides a visible control to choose an image from the user’s device (via a file picker).",
+        "After a valid image is selected, the modal displays the selected image as a preview (client-side only; no backend upload).",
+        "If the user selects a non-image file, an English, user-friendly inline error message is shown within the modal.",
+        "If the selected image file is too large or cannot be previewed, an English, user-friendly inline error message is shown within the modal.",
+        "The modal continues to work as before: escape key closes it, clicking the backdrop closes it, and the close (X) button closes it.",
+        "The new modal image picker does not break or interfere with the existing homepage image picker."
       ],
       "file_operations": [
         {
-          "path": "frontend/public/assets/generated/couple-photo.dim_1200x1200.jpg",
-          "operation": "create",
-          "description": "Add the provided/generated couple portrait image asset (1200x1200) at this exact path so it can be served as a static public file."
-        },
-        {
-          "path": "frontend/src/App.tsx",
+          "path": "frontend/src/components/ValentineModal.tsx",
           "operation": "modify",
-          "description": "Reference the couple photo via a direct public path (/assets/generated/couple-photo.dim_1200x1200.jpg) from the homepage UI; do not add any backend routing or fetching logic."
+          "description": "Add an independent, modal-local image picker: use the existing useClientImagePreview hook for client-side validation + preview, add a visible \"Choose Photo\" control in the modal image area (with hidden file input and reset-to-reselect behavior), and render inline error messaging within the modal while preserving existing escape/backdrop/X close behaviors."
         }
       ]
     }

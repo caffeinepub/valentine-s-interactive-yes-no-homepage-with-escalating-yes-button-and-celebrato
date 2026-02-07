@@ -1,71 +1,59 @@
 {
   "kind": "build_request",
-  "title": "Add couple photo image to homepage",
+  "title": "Add image upload to the success modal and capitalize Annammooo in the homepage prompt",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-6",
-      "text": "Add a couple photo image to the homepage inside the main question card, visually integrated with the existing Valentine theme (rounded corners, subtle border/shadow), and positioned so it does not interfere with the Yes/No interaction (including the Yes button growth behavior).",
+      "id": "REQ-10",
+      "text": "Update the homepage question text to use the capitalized name \"Annammooo\" instead of \"annammooo\" (keep the rest of the text unchanged).",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "recent-messages"
+          "msg-3"
         ],
         "quotes": [
-          "I need to add an image of ours on the website homepage"
+          "also change the name annammooo to Annammooo"
         ]
       },
       "acceptanceCriteria": [
-        "The homepage displays a couple photo within the main card alongside the existing heart icon, question text, and buttons.",
-        "The photo is responsive (looks good on mobile and desktop), maintains aspect ratio, and does not overflow the card.",
-        "The photo does not block clicks on the Yes/No buttons at any escalation stage.",
-        "An accessible alt attribute is provided for the couple photo image."
+        "The homepage headline renders exactly: \"Annammooo will you be my valentine\" (same wording as before, with only the name’s capitalization changed).",
+        "No other user-facing text is changed as part of this requirement."
       ]
     },
     {
-      "id": "REQ-7",
-      "text": "Add the couple photo as a static asset under `frontend/public/assets/generated/` and reference it directly from the homepage UI (do not serve images from the backend).",
+      "id": "REQ-11",
+      "text": "Add a client-side image upload/picker in the success modal (the second response screen shown after clicking \"Yes\") that allows the user to select an image from their device and preview it in the modal, similar to the existing homepage image picker behavior.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "recent-messages"
+          "msg-3"
         ],
         "quotes": [
-          "I need to add an image of ours on the website homepage"
+          "I need to add a custom image of ours on the second response page as well so add an option to upload an image in the second page"
         ]
       },
       "acceptanceCriteria": [
-        "A new image file exists at `frontend/public/assets/generated/couple-photo.dim_1200x1200.jpg`.",
-        "The homepage references the photo via a direct public path (e.g., `/assets/generated/couple-photo.dim_1200x1200.jpg`).",
-        "No backend code is added or changed to support serving this image."
+        "When the success modal is open, the image area in the modal provides a visible control to choose an image from the user’s device (via a file picker).",
+        "After a valid image is selected, the modal displays the selected image as a preview (client-side only; no backend upload).",
+        "If the user selects a non-image file, an English, user-friendly inline error message is shown within the modal.",
+        "If the selected image file is too large or cannot be previewed, an English, user-friendly inline error message is shown within the modal.",
+        "The modal continues to work as before: escape key closes it, clicking the backdrop closes it, and the close (X) button closes it.",
+        "The new modal image picker does not break or interfere with the existing homepage image picker."
       ]
     }
   ],
   "constraints": [
-    "Do not modify files under `frontend/src/components/ui` or any other paths listed as immutable in SYSTEM_CONTEXT.",
-    "Keep all existing homepage behaviors intact (No-click error message, Yes button escalation, No button fade/disable, modal on Yes).",
-    "Do not route images through the backend; images must be served as static frontend assets from `frontend/public/assets/generated/`.",
-    "Backend must remain single-actor; no backend changes are required for this request."
+    "Frontend must not modify any files under frontend/src/components/ui or any paths listed as immutable in SYSTEM_CONTEXT.",
+    "Do not serve images from the backend; image selection must remain client-side preview only.",
+    "Backend is single-actor Motoko; no backend changes are required for this request."
   ],
   "nonGoals": [
-    "Changing the existing popup modal image or message text.",
-    "Adding image upload functionality or any user-driven image management UI.",
-    "Adding or modifying authentication behavior."
+    "Persisting uploaded images across page refreshes or across devices/sessions.",
+    "Uploading images to the Internet Computer backend or any external storage.",
+    "Adding new routes or multi-page navigation beyond the existing modal-based second response screen."
   ],
   "imageRequirements": {
-    "required": [
-      "Couple photo portrait-style image, warm romantic tone, centered framing (couple-photo.dim_1200x1200.jpg)"
-    ],
+    "required": [],
     "edits": []
-  },
-  "userProfileUpdate": {
-    "goalsToAdd": [],
-    "goalsToRemove": [],
-    "preferencesToAdd": [],
-    "preferencesToRemove": [],
-    "miscToAdd": [],
-    "miscToRemove": [],
-    "fieldsToSet": {},
-    "fieldsToDelete": []
   }
 }

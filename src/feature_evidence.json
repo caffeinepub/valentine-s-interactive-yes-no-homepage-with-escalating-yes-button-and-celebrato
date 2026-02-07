@@ -2,8 +2,8 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-add-a-couple-photo-image-to-the-homepage-inside-the-main-question-card-visually-integrated-with-the-existing-valentine-theme-rounded-corners-subtle-border-shadow-and-positioned-so-it-does-not-interfere-with-the-yes-no-interaction-including-the-yes-button-growth-behavior",
-      "featureTitle": "Add a couple photo image to the homepage inside the main question card, visually integrated with the existing Valentine theme (rounded corners, subtle border/shadow), and positioned so it does not interfere with the Yes/No interaction (including the Yes button growth behavior).",
+      "featureId": "feature-update-the-homepage-question-text-to-use-the-capitalized-name-annammooo-instead-of-annammooo-keep-the-rest-of-the-text-unchanged",
+      "featureTitle": "Update the homepage question text to use the capitalized name \"Annammooo\" instead of \"annammooo\" (keep the rest of the text unchanged).",
       "files": [
         "frontend/src/App.tsx"
       ],
@@ -15,15 +15,15 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-6"
+        "REQ-10"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-add-the-couple-photo-as-a-static-asset-under-frontend-public-assets-generated-and-reference-it-directly-from-the-homepage-ui-do-not-serve-images-from-the-backend",
-      "featureTitle": "Add the couple photo as a static asset under `frontend/public/assets/generated/` and reference it directly from the homepage UI (do not serve images from the backend).",
+      "featureId": "feature-add-a-client-side-image-upload-picker-in-the-success-modal-the-second-response-screen-shown-after-clicking-yes-that-allows-the-user-to-select-an-image-from-their-device-and-preview-it-in-the-modal-similar-to-the-existing-homepage-image-picker-behavior",
+      "featureTitle": "Add a client-side image upload/picker in the success modal (the second response screen shown after clicking \"Yes\") that allows the user to select an image from their device and preview it in the modal, similar to the existing homepage image picker behavior.",
       "files": [
-        "frontend/src/App.tsx"
+        "frontend/src/components/ValentineModal.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -33,7 +33,7 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-7"
+        "REQ-11"
       ],
       "confidence": "high"
     }

@@ -1,14 +1,16 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 5,
-  "summary": "Valentine’s website for Jishone to ask annammooo to be his valentine, featuring an interactive Yes/No prompt that escalates until Yes is chosen, then shows a popup with a custom image and romantic message.",
+  "projectStateVersion": 9,
+  "summary": "Valentine’s website for Jishone to ask Annammooo to be his valentine, featuring an interactive Yes/No prompt that escalates until Yes is chosen, then shows a popup with a custom image and romantic message; also support adding a custom image on the second response page via client-side image selection.",
   "architectural_notes": [
     "Single-page Valentine website with interactive button logic and modal popup on success.",
-    "Homepage should include a static personal image (e.g., couple photo) referenced from frontend assets (no backend image serving)."
+    "Homepage should include a static personal image (e.g., couple photo) referenced from frontend assets (no backend image serving).",
+    "Add a client-side image picker (file input) to let the user select a local image and render it on the homepage without requiring backend upload/serving.",
+    "Ensure displayed name text uses exact capitalization: “Annammooo” (not “annammooo”).",
+    "Add a client-side image picker (file input) on the second response page to render a user-selected image without backend upload/serving."
   ],
   "known_issues": [],
   "isFixRequest": false,
-  "imageRequirements": "## Required Images\n- Couple photo portrait-style image, warm romantic tone, centered framing (couple-photo.dim_1200x1200.jpg)",
   "existing_features": [
     {
       "id": "feature-create-a-single-page-valentine-s-website-homepage-that-displays-the-question-text-annammooo-will-you-be-my-valentine-with-two-buttons-yes-and-no",
@@ -65,6 +67,38 @@
         "REQ-7"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-add-a-user-facing-control-on-the-homepage-that-lets-the-user-choose-an-image-from-their-device-gallery-via-a-file-picker-and-then-display-the-selected-image-in-the-homepage-couple-photo-area",
+      "title": "Add a user-facing control on the homepage that lets the user choose an image from their device/gallery (via a file picker) and then display the selected image in the homepage couple-photo area.",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-validate-the-selected-file-as-an-image-and-show-an-english-user-friendly-inline-message-when-the-file-is-not-a-supported-image-type-or-cannot-be-previewed",
+      "title": "Validate the selected file as an image and show an English, user-friendly inline message when the file is not a supported image type or cannot be previewed.",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-homepage-question-text-to-use-the-capitalized-name-annammooo-instead-of-annammooo-keep-the-rest-of-the-text-unchanged",
+      "title": "Update the homepage question text to use the capitalized name \"Annammooo\" instead of \"annammooo\" (keep the rest of the text unchanged).",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-client-side-image-upload-picker-in-the-success-modal-the-second-response-screen-shown-after-clicking-yes-that-allows-the-user-to-select-an-image-from-their-device-and-preview-it-in-the-modal-similar-to-the-existing-homepage-image-picker-behavior",
+      "title": "Add a client-side image upload/picker in the success modal (the second response screen shown after clicking \"Yes\") that allows the user to select an image from their device and preview it in the modal, similar to the existing homepage image picker behavior.",
+      "reqIds": [
+        "REQ-11"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -89,6 +123,18 @@
     {
       "id": "AR-4",
       "summary": "Add a personal/couple photo image to the website homepage",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Allow user to pick an image from their device/gallery and display it on the homepage (client-side upload/preview)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-6",
+      "summary": "Add an option to choose/upload a custom image on the second response page (client-side picker + preview), similar to the homepage image picker",
       "reqIds": [],
       "status": "pending"
     }

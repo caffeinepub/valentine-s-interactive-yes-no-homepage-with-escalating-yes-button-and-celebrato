@@ -1,5 +1,6 @@
-import { useEffect } from 'react';
-import { X, Heart } from 'lucide-react';
+import { useEffect, useRef } from 'react';
+import { X, Heart, Upload } from 'lucide-react';
+import { useClientImagePreview } from '../hooks/useClientImagePreview';
 
 interface ValentineModalProps {
   isOpen: boolean;
@@ -7,6 +8,11 @@ interface ValentineModalProps {
 }
 
 export default function ValentineModal({ isOpen, onClose }: ValentineModalProps) {
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const { previewSrc, error: imageError, isLoading, handleFileSelect } = useClientImagePreview(
+    '/assets/generated/valentine-popup-illustration.dim_1024x1024.png'
+  );
+
   // Handle escape key
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
@@ -25,6 +31,19 @@ export default function ValentineModal({ isOpen, onClose }: ValentineModalProps)
       document.body.style.overflow = 'unset';
     };
   }, [isOpen, onClose]);
+
+  const handleImagePickerClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0] || null;
+    handleFileSelect(file);
+    // Reset input value to allow selecting the same file again
+    if (e.target) {
+      e.target.value = '';
+    }
+  };
 
   if (!isOpen) return null;
 
@@ -59,16 +78,54 @@ export default function ValentineModal({ isOpen, onClose }: ValentineModalProps)
             <Heart className="w-8 h-8 text-pink-500 fill-pink-500 animate-pulse delay-150" />
           </div>
 
-          {/* Image */}
+          {/* Image with picker */}
           <div className="mb-8 flex justify-center animate-in slide-in-from-top duration-500 delay-200">
-            <div className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white dark:border-rose-800 max-w-md">
-              <img
-                src="/assets/generated/valentine-popup-illustration.dim_1024x1024.png"
-                alt="Valentine celebration"
-                className="w-full h-auto"
+            <div className="relative group max-w-md">
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white dark:border-rose-800">
+                <img
+                  src={previewSrc || '/assets/generated/valentine-popup-illustration.dim_1024x1024.png'}
+                  alt="Valentine celebration"
+                  className="w-full h-auto"
+                />
+                {/* Image picker overlay button */}
+                <button
+                  onClick={handleImagePickerClick}
+                  disabled={isLoading}
+                  className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 cursor-pointer disabled:cursor-not-allowed"
+                  aria-label="Choose a different photo"
+                >
+                  <div className="flex flex-col items-center gap-2 text-white">
+                    <Upload className="w-8 h-8" />
+                    <span className="text-sm font-semibold">
+                      {isLoading ? 'Loading...' : 'Choose Photo'}
+                    </span>
+                  </div>
+                </button>
+              </div>
+              {/* Hidden file input */}
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/*"
+                onChange={handleFileChange}
+                className="hidden"
+                aria-label="Select image file"
               />
             </div>
           </div>
+
+          {/* Image error message */}
+          {imageError && (
+            <div
+              className="mb-6 px-4 py-3 rounded-lg bg-rose-100 dark:bg-rose-900/50 border border-rose-300 dark:border-rose-700 animate-in fade-in slide-in-from-top-2 duration-300"
+              role="alert"
+              aria-live="polite"
+            >
+              <p className="text-sm text-rose-700 dark:text-rose-300 font-medium">
+                {imageError}
+              </p>
+            </div>
+          )}
 
           {/* Message */}
           <div className="text-center space-y-4 animate-in slide-in-from-bottom duration-500 delay-300">
