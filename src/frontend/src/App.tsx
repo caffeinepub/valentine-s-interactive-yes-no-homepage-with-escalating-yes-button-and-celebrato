@@ -113,7 +113,7 @@ function App() {
 
             {/* Question text */}
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-8 text-rose-900 dark:text-rose-100 leading-tight">
-              Annammooo will you be my valentine
+              Annammooo!! Will you be my valentine????
             </h1>
 
             {/* Error message */}

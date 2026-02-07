@@ -2,8 +2,8 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-update-the-homepage-question-text-to-use-the-capitalized-name-annammooo-instead-of-annammooo-keep-the-rest-of-the-text-unchanged",
-      "featureTitle": "Update the homepage question text to use the capitalized name \"Annammooo\" instead of \"annammooo\" (keep the rest of the text unchanged).",
+      "featureId": "feature-update-the-homepage-headline-prompt-text-on-the-main-question-card-to-exactly-annammooo-will-you-be-my-valentine-including-capitalization-and-punctuation",
+      "featureTitle": "Update the homepage headline/prompt text on the main question card to exactly: \"Annammooo!! Will you be my valentine????\" (including capitalization and punctuation).",
       "files": [
         "frontend/src/App.tsx"
       ],
@@ -15,25 +15,7 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-10"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-add-a-client-side-image-upload-picker-in-the-success-modal-the-second-response-screen-shown-after-clicking-yes-that-allows-the-user-to-select-an-image-from-their-device-and-preview-it-in-the-modal-similar-to-the-existing-homepage-image-picker-behavior",
-      "featureTitle": "Add a client-side image upload/picker in the success modal (the second response screen shown after clicking \"Yes\") that allows the user to select an image from their device and preview it in the modal, similar to the existing homepage image picker behavior.",
-      "files": [
-        "frontend/src/components/ValentineModal.tsx"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-11"
+        "REQ-12"
       ],
       "confidence": "high"
     }

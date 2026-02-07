@@ -1,13 +1,14 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 9,
+  "projectStateVersion": 11,
   "summary": "Valentine’s website for Jishone to ask Annammooo to be his valentine, featuring an interactive Yes/No prompt that escalates until Yes is chosen, then shows a popup with a custom image and romantic message; also support adding a custom image on the second response page via client-side image selection.",
   "architectural_notes": [
     "Single-page Valentine website with interactive button logic and modal popup on success.",
     "Homepage should include a static personal image (e.g., couple photo) referenced from frontend assets (no backend image serving).",
     "Add a client-side image picker (file input) to let the user select a local image and render it on the homepage without requiring backend upload/serving.",
     "Ensure displayed name text uses exact capitalization: “Annammooo” (not “annammooo”).",
-    "Add a client-side image picker (file input) on the second response page to render a user-selected image without backend upload/serving."
+    "Add a client-side image picker (file input) on the second response page to render a user-selected image without backend upload/serving.",
+    "Homepage question text should be updated to exactly: “Annammooo!! Will you be my valentine????” (including capitalization and punctuation)."
   ],
   "known_issues": [],
   "isFixRequest": false,
@@ -99,6 +100,14 @@
         "REQ-11"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-update-the-homepage-headline-prompt-text-on-the-main-question-card-to-exactly-annammooo-will-you-be-my-valentine-including-capitalization-and-punctuation",
+      "title": "Update the homepage headline/prompt text on the main question card to exactly: \"Annammooo!! Will you be my valentine????\" (including capitalization and punctuation).",
+      "reqIds": [
+        "REQ-12"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -135,6 +144,12 @@
     {
       "id": "AR-6",
       "summary": "Add an option to choose/upload a custom image on the second response page (client-side picker + preview), similar to the homepage image picker",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-7",
+      "summary": "Update homepage question text to exactly: “Annammooo!! Will you be my valentine????”",
       "reqIds": [],
       "status": "pending"
     }

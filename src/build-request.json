@@ -1,56 +1,35 @@
 {
   "kind": "build_request",
-  "title": "Add image upload to the success modal and capitalize Annammooo in the homepage prompt",
+  "title": "Update homepage prompt text punctuation and capitalization",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-10",
-      "text": "Update the homepage question text to use the capitalized name \"Annammooo\" instead of \"annammooo\" (keep the rest of the text unchanged).",
+      "id": "REQ-12",
+      "text": "Update the homepage headline/prompt text on the main question card to exactly: \"Annammooo!! Will you be my valentine????\" (including capitalization and punctuation).",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-3"
+          "msg-1"
         ],
         "quotes": [
-          "also change the name annammooo to Annammooo"
+          "Can you alter the test in the homepage to Annammooo!! Will you be my valentine????"
         ]
       },
       "acceptanceCriteria": [
-        "The homepage headline renders exactly: \"Annammooo will you be my valentine\" (same wording as before, with only the name’s capitalization changed).",
-        "No other user-facing text is changed as part of this requirement."
-      ]
-    },
-    {
-      "id": "REQ-11",
-      "text": "Add a client-side image upload/picker in the success modal (the second response screen shown after clicking \"Yes\") that allows the user to select an image from their device and preview it in the modal, similar to the existing homepage image picker behavior.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-3"
-        ],
-        "quotes": [
-          "I need to add a custom image of ours on the second response page as well so add an option to upload an image in the second page"
-        ]
-      },
-      "acceptanceCriteria": [
-        "When the success modal is open, the image area in the modal provides a visible control to choose an image from the user’s device (via a file picker).",
-        "After a valid image is selected, the modal displays the selected image as a preview (client-side only; no backend upload).",
-        "If the user selects a non-image file, an English, user-friendly inline error message is shown within the modal.",
-        "If the selected image file is too large or cannot be previewed, an English, user-friendly inline error message is shown within the modal.",
-        "The modal continues to work as before: escape key closes it, clicking the backdrop closes it, and the close (X) button closes it.",
-        "The new modal image picker does not break or interfere with the existing homepage image picker."
+        "On the homepage, the main headline text renders exactly as: \"Annammooo!! Will you be my valentine????\"",
+        "No other user-facing text on the page is changed as part of this update.",
+        "The Yes/No button interactions and modal behavior continue to work as before."
       ]
     }
   ],
   "constraints": [
-    "Frontend must not modify any files under frontend/src/components/ui or any paths listed as immutable in SYSTEM_CONTEXT.",
-    "Do not serve images from the backend; image selection must remain client-side preview only.",
-    "Backend is single-actor Motoko; no backend changes are required for this request."
+    "Do not modify any files under frontend/src/components/ui (read-only components).",
+    "Keep the existing Valentine-themed visual styling and interactions unchanged aside from the headline text update."
   ],
   "nonGoals": [
-    "Persisting uploaded images across page refreshes or across devices/sessions.",
-    "Uploading images to the Internet Computer backend or any external storage.",
-    "Adding new routes or multi-page navigation beyond the existing modal-based second response screen."
+    "No backend/canister changes.",
+    "No changes to the success modal content or image picker behavior.",
+    "No new images or asset changes."
   ],
   "imageRequirements": {
     "required": [],
