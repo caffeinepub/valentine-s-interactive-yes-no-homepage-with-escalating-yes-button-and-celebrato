@@ -1,109 +1,43 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Valentine’s single-page Yes/No interaction with escalating Yes button and celebratory modal",
+  "title": "Add couple photo static asset to homepage question card",
   "requirements": [
     {
-      "id": "REQ-1",
-      "summary": "Build a responsive single-page homepage showing the exact Valentine question with “Yes” and “No” buttons.",
+      "id": "REQ-6",
+      "summary": "Display a responsive couple photo inside the homepage main question card without interfering with Yes/No interactions.",
       "acceptanceCriteria": [
-        "On initial load, the homepage shows the question text exactly as provided.",
-        "Two clearly labeled buttons are present: “Yes” and “No”.",
-        "The page is usable on both mobile and desktop screen sizes (responsive layout)."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "create",
-          "description": "Create the single-page homepage UI rendering the exact question text “annammooo will you be my valentine” and two buttons labeled “Yes” and “No”, laid out responsively for mobile/desktop."
-        }
-      ]
-    },
-    {
-      "id": "REQ-2",
-      "summary": "Implement escalating interaction: “No” shows a try-again message and progressively enlarges “Yes” until “No” becomes effectively hidden; reset on refresh.",
-      "acceptanceCriteria": [
-        "Clicking “No” displays an error/try-again message in English (e.g., “Oops—try again.”).",
-        "Each consecutive “No” click increases the “Yes” button size relative to its previous size.",
-        "The “Yes” button continues to grow with each “No” click without breaking layout (no overflow that makes the page unusable).",
-        "After enough “No” clicks, the “No” button is no longer practically clickable/visible because it is covered/hidden by the enlarged “Yes” button.",
-        "Refreshing the page resets the interaction back to the initial state (initial button sizes, no error message shown)."
+        "The homepage displays a couple photo within the main card alongside the existing heart icon, question text, and buttons.",
+        "The photo is responsive (looks good on mobile and desktop), maintains aspect ratio, and does not overflow the card.",
+        "The photo does not block clicks on the Yes/No buttons at any escalation stage.",
+        "An accessible alt attribute is provided for the couple photo image."
       ],
       "file_operations": [
         {
           "path": "frontend/src/App.tsx",
           "operation": "modify",
-          "description": "Add client-side interaction state (e.g., no-click count, error message visibility) and compute progressive “Yes” button scaling/prominence per “No” click; ensure layout stays usable while “Yes” grows and eventually overlays/covers “No” via stacking/positioning so “No” becomes effectively unclickable; rely on in-memory state so refresh resets."
+          "description": "Add an <img> to the question card (between the heading/error area and the buttons) referencing the static asset at frontend/public/assets/generated/couple-photo.dim_1200x1200.jpg; style it to match the Valentine theme (rounded corners, subtle border/shadow), keep it responsive (preserve aspect ratio, constrain max height/width so it never overflows), and ensure it cannot intercept pointer events so Yes/No remain clickable even when the Yes button scales."
         }
       ]
     },
     {
-      "id": "REQ-3",
-      "summary": "Show a dismissible modal on “Yes” click containing a custom static image and the exact provided note text with line break.",
+      "id": "REQ-7",
+      "summary": "Add the couple photo as a static generated asset and reference it directly from the homepage UI.",
       "acceptanceCriteria": [
-        "Clicking “Yes” opens a modal overlay on top of the homepage content.",
-        "The modal displays the provided message text exactly (including punctuation and line break between the two sentences/lines).",
-        "The modal displays the custom image (from static assets) above or alongside the message.",
-        "The modal can be dismissed via a close button and by pressing Escape and/or clicking outside the modal (at least one dismissal method must exist).",
-        "After dismissing the modal, the user can still see the homepage state (it does not crash or navigate away unintentionally)."
+        "A new image file exists at `frontend/public/assets/generated/couple-photo.dim_1200x1200.jpg`.",
+        "The homepage references the photo via a direct public path (e.g., `/assets/generated/couple-photo.dim_1200x1200.jpg`).",
+        "No backend code is added or changed to support serving this image."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/ValentineModal.tsx",
+          "path": "frontend/public/assets/generated/couple-photo.dim_1200x1200.jpg",
           "operation": "create",
-          "description": "Create a lightweight accessible modal component that supports open/close, renders the static image from frontend/public/assets/generated/valentine-popup-illustration.dim_1024x1024.png, shows the exact note text including the required line break, and supports dismissal via a close button plus Escape and/or backdrop click."
+          "description": "Add the provided/generated couple portrait image asset (1200x1200) at this exact path so it can be served as a static public file."
         },
         {
           "path": "frontend/src/App.tsx",
           "operation": "modify",
-          "description": "Wire the “Yes” button to open ValentineModal and pass in the exact message text; ensure closing the modal restores the underlying homepage view without navigation."
-        }
-      ]
-    },
-    {
-      "id": "REQ-4",
-      "summary": "Apply a cohesive Valentine-themed visual design (warm reds/pinks/creams) consistently across the homepage, buttons, error message, and modal; avoid a blue/purple primary palette.",
-      "acceptanceCriteria": [
-        "The UI uses a consistent Valentine-appropriate theme (e.g., warm reds/pinks/creams, playful typography) across all elements.",
-        "Buttons, modal, and text share a consistent style system (sizes, radii, shadows, spacing).",
-        "The primary visual palette is not blue/purple."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/index.css",
-          "operation": "create",
-          "description": "Define global Valentine-themed styling (warm reds/pinks/creams, consistent radii/shadows/spacing) using existing global styling entry point so the theme applies across homepage, buttons, error message, and modal; avoid any blue/purple primary palette."
-        },
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Apply consistent themed classes/styles to the homepage layout, buttons, and error/try-again message to match the Valentine design system defined in frontend/src/index.css."
-        },
-        {
-          "path": "frontend/src/components/ValentineModal.tsx",
-          "operation": "modify",
-          "description": "Style the modal (overlay, card, typography, spacing, close control) to match the same Valentine theme and maintain responsive behavior."
-        }
-      ]
-    },
-    {
-      "id": "REQ-5",
-      "summary": "Add the required generated image under frontend/public/assets/generated/ and reference it directly from the UI (no backend involvement).",
-      "acceptanceCriteria": [
-        "At least one generated image file exists under `frontend/public/assets/generated/` with the exact filename specified in the image requirements.",
-        "The modal’s image is loaded via a static URL path (e.g., `/assets/generated/...`) and renders correctly in production build.",
-        "No backend endpoints are added to fetch or transform the image."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/public/assets/generated/valentine-popup-illustration.dim_1024x1024.png",
-          "operation": "create",
-          "description": "Add the generated static image asset file exactly at frontend/public/assets/generated/valentine-popup-illustration.dim_1024x1024.png for use in the celebratory modal."
-        },
-        {
-          "path": "frontend/src/components/ValentineModal.tsx",
-          "operation": "modify",
-          "description": "Reference and render the static image from frontend/public/assets/generated/valentine-popup-illustration.dim_1024x1024.png via a direct static asset path so it works in production builds, without any backend fetching."
+          "description": "Reference the couple photo via a direct public path (/assets/generated/couple-photo.dim_1200x1200.jpg) from the homepage UI; do not add any backend routing or fetching logic."
         }
       ]
     }

@@ -1,114 +1,71 @@
 {
   "kind": "build_request",
-  "title": "Valentine’s interactive Yes/No homepage with escalating Yes button and celebratory modal",
+  "title": "Add couple photo image to homepage",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-1",
-      "text": "Create a single-page Valentine’s website homepage that displays the question text: “annammooo will you be my valentine” with two buttons: “Yes” and “No”.",
+      "id": "REQ-6",
+      "text": "Add a couple photo image to the homepage inside the main question card, visually integrated with the existing Valentine theme (rounded corners, subtle border/shadow), and positioned so it does not interfere with the Yes/No interaction (including the Yes button growth behavior).",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-2"
+          "recent-messages"
         ],
         "quotes": [
-          "the home page should have a question like annammooo will you be my valentine with an yes or no button"
+          "I need to add an image of ours on the website homepage"
         ]
       },
       "acceptanceCriteria": [
-        "On initial load, the homepage shows the question text exactly as provided.",
-        "Two clearly labeled buttons are present: “Yes” and “No”.",
-        "The page is usable on both mobile and desktop screen sizes (responsive layout)."
+        "The homepage displays a couple photo within the main card alongside the existing heart icon, question text, and buttons.",
+        "The photo is responsive (looks good on mobile and desktop), maintains aspect ratio, and does not overflow the card.",
+        "The photo does not block clicks on the Yes/No buttons at any escalation stage.",
+        "An accessible alt attribute is provided for the couple photo image."
       ]
     },
     {
-      "id": "REQ-2",
-      "text": "Implement the interactive escalation behavior for the “No” button: when “No” is clicked, show an error/try-again message and increase the size (and/or prominence) of the “Yes” button progressively after each “No” click; repeat indefinitely until “Yes” is clicked. Ensure that as the “Yes” button grows, the “No” button becomes effectively hidden behind/under the “Yes” button by the time sufficient “No” clicks occur.",
+      "id": "REQ-7",
+      "text": "Add the couple photo as a static asset under `frontend/public/assets/generated/` and reference it directly from the homepage UI (do not serve images from the backend).",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-2"
+          "recent-messages"
         ],
         "quotes": [
-          "if she clicks no button it shows error message and ask her to try again and along with that the yes button becomes bigger, this process continues until she selects yes and the no button gets hidden behind the big yes button"
+          "I need to add an image of ours on the website homepage"
         ]
       },
       "acceptanceCriteria": [
-        "Clicking “No” displays an error/try-again message in English (e.g., “Oops—try again.”).",
-        "Each consecutive “No” click increases the “Yes” button size relative to its previous size.",
-        "The “Yes” button continues to grow with each “No” click without breaking layout (no overflow that makes the page unusable).",
-        "After enough “No” clicks, the “No” button is no longer practically clickable/visible because it is covered/hidden by the enlarged “Yes” button.",
-        "Refreshing the page resets the interaction back to the initial state (initial button sizes, no error message shown)."
-      ]
-    },
-    {
-      "id": "REQ-3",
-      "text": "When the user clicks “Yes”, show a popup modal that includes (1) a custom image and (2) the exact note text:\n“Yayyy!! You made Jishone the happiest man on earth.\nI don’t need big promises. just you, by my side, as we grow and figure life out together”",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-2"
-        ],
-        "quotes": [
-          "once she selects the yes button a popup box appears with a custom image and another note which says Yayyy!! You made Jishone the happiest man on earth.\nI don’t need big promises. just you, by my side, as we grow and figure life out together"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Clicking “Yes” opens a modal overlay on top of the homepage content.",
-        "The modal displays the provided message text exactly (including punctuation and line break between the two sentences/lines).",
-        "The modal displays the custom image (from static assets) above or alongside the message.",
-        "The modal can be dismissed via a close button and by pressing Escape and/or clicking outside the modal (at least one dismissal method must exist).",
-        "After dismissing the modal, the user can still see the homepage state (it does not crash or navigate away unintentionally)."
-      ]
-    },
-    {
-      "id": "REQ-4",
-      "text": "Establish a cohesive Valentine-themed visual design (colors, typography, spacing, and component styling) and apply it consistently across the homepage, buttons, error message, and modal. Avoid a blue/purple primary palette.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-2"
-        ]
-      },
-      "acceptanceCriteria": [
-        "The UI uses a consistent Valentine-appropriate theme (e.g., warm reds/pinks/creams, playful typography) across all elements.",
-        "Buttons, modal, and text share a consistent style system (sizes, radii, shadows, spacing).",
-        "The primary visual palette is not blue/purple."
-      ]
-    },
-    {
-      "id": "REQ-5",
-      "text": "Add the required generated image(s) to the frontend as static assets under `frontend/public/assets/generated/` and reference them directly from the UI (do not serve images from the backend).",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-2"
-        ]
-      },
-      "acceptanceCriteria": [
-        "At least one generated image file exists under `frontend/public/assets/generated/` with the exact filename specified in the image requirements.",
-        "The modal’s image is loaded via a static URL path (e.g., `/assets/generated/...`) and renders correctly in production build.",
-        "No backend endpoints are added to fetch or transform the image."
+        "A new image file exists at `frontend/public/assets/generated/couple-photo.dim_1200x1200.jpg`.",
+        "The homepage references the photo via a direct public path (e.g., `/assets/generated/couple-photo.dim_1200x1200.jpg`).",
+        "No backend code is added or changed to support serving this image."
       ]
     }
   ],
   "constraints": [
-    "Use English for any user-facing text used in the app UI and in this build request.",
-    "Do not modify any files under `frontend/src/components/ui` (compose existing UI components instead).",
-    "Do not modify immutable hook entrypoints listed in SYSTEM_CONTEXT (e.g., `frontend/src/hooks/useInternetIdentity.ts(x)`, `frontend/src/hooks/useActor.ts`, `frontend/src/main.tsx`).",
-    "Backend must remain a single Motoko actor if any backend code is added; however, this feature should not require backend changes.",
-    "Do not add third-party authentication providers or external databases/services."
+    "Do not modify files under `frontend/src/components/ui` or any other paths listed as immutable in SYSTEM_CONTEXT.",
+    "Keep all existing homepage behaviors intact (No-click error message, Yes button escalation, No button fade/disable, modal on Yes).",
+    "Do not route images through the backend; images must be served as static frontend assets from `frontend/public/assets/generated/`.",
+    "Backend must remain single-actor; no backend changes are required for this request."
   ],
   "nonGoals": [
-    "User accounts, login, or Internet Identity integration.",
-    "Persisting interaction state across reloads/sessions.",
-    "Analytics, tracking, or sharing integrations.",
-    "Multi-page routing or complex navigation beyond the single homepage interaction."
+    "Changing the existing popup modal image or message text.",
+    "Adding image upload functionality or any user-driven image management UI.",
+    "Adding or modifying authentication behavior."
   ],
   "imageRequirements": {
     "required": [
-      "Cute Valentine illustration featuring hearts and a romantic vibe, suitable for a popup (valentine-popup-illustration.dim_1024x1024.png)"
+      "Couple photo portrait-style image, warm romantic tone, centered framing (couple-photo.dim_1200x1200.jpg)"
     ],
     "edits": []
+  },
+  "userProfileUpdate": {
+    "goalsToAdd": [],
+    "goalsToRemove": [],
+    "preferencesToAdd": [],
+    "preferencesToRemove": [],
+    "miscToAdd": [],
+    "miscToRemove": [],
+    "fieldsToSet": {},
+    "fieldsToDelete": []
   }
 }

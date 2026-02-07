@@ -1,13 +1,12 @@
 # Specification
 
 ## Summary
-**Goal:** Build a single-page Valentine-themed homepage with a Yes/No prompt where “No” escalates the “Yes” button size and “Yes” opens a celebratory modal with an image and note.
+**Goal:** Add a couple photo to the homepage’s main question card, matching the existing Valentine theme without breaking any current button interactions.
 
 **Planned changes:**
-- Create a responsive single-page layout showing the exact question text: “annammooo will you be my valentine” with “Yes” and “No” buttons.
-- Implement “No” click behavior: show an English try-again message and progressively increase the “Yes” button size on each click until the “No” button becomes effectively hidden/unclickable; reset on refresh.
-- Implement “Yes” click behavior: open a dismissible modal overlay containing a custom static image and the exact provided note text (with the line break).
-- Apply a cohesive Valentine-themed visual design across page, buttons, message, and modal (avoid blue/purple as primary colors).
-- Add the generated image under `frontend/public/assets/generated/` and reference it via a static path in the modal.
+- Add a new static image asset at `frontend/public/assets/generated/couple-photo.dim_1200x1200.jpg`.
+- Update the homepage UI to render the couple photo inside the main question card with rounded corners and a subtle border/shadow consistent with the Valentine styling.
+- Ensure the photo is responsive, preserves aspect ratio, stays within the card bounds, and never blocks clicks on the Yes/No buttons (including during Yes-button growth).
+- Add an accessible `alt` attribute for the couple photo.
 
-**User-visible outcome:** Visitors see the Valentine question with Yes/No buttons; clicking “No” repeatedly makes “Yes” grow while showing a try-again message, and clicking “Yes” shows a themed popup with an illustration and the love note.
+**User-visible outcome:** The homepage shows a themed couple photo within the main card alongside the existing content, while all Yes/No behaviors continue to work normally on mobile and desktop.

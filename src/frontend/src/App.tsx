@@ -45,6 +45,15 @@ function App() {
               </div>
             </div>
 
+            {/* Couple photo */}
+            <div className="flex justify-center mb-8 pointer-events-none">
+              <img
+                src="/assets/generated/couple-photo.dim_1200x1200.jpg"
+                alt="Our couple photo"
+                className="w-full max-w-sm h-auto rounded-2xl shadow-xl border-4 border-rose-200 dark:border-rose-700 object-cover"
+              />
+            </div>
+
             {/* Question text */}
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-8 text-rose-900 dark:text-rose-100 leading-tight">
               annammooo will you be my valentine

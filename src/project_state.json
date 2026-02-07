@@ -1,13 +1,14 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 3,
+  "projectStateVersion": 5,
   "summary": "Valentine’s website for Jishone to ask annammooo to be his valentine, featuring an interactive Yes/No prompt that escalates until Yes is chosen, then shows a popup with a custom image and romantic message.",
   "architectural_notes": [
-    "Single-page Valentine website with interactive button logic and modal popup on success."
+    "Single-page Valentine website with interactive button logic and modal popup on success.",
+    "Homepage should include a static personal image (e.g., couple photo) referenced from frontend assets (no backend image serving)."
   ],
   "known_issues": [],
   "isFixRequest": false,
-  "imageRequirements": "## Required Images\n- Cute Valentine illustration featuring hearts and a romantic vibe, suitable for a popup (valentine-popup-illustration.dim_1024x1024.png)",
+  "imageRequirements": "## Required Images\n- Couple photo portrait-style image, warm romantic tone, centered framing (couple-photo.dim_1200x1200.jpg)",
   "existing_features": [
     {
       "id": "feature-create-a-single-page-valentine-s-website-homepage-that-displays-the-question-text-annammooo-will-you-be-my-valentine-with-two-buttons-yes-and-no",
@@ -48,6 +49,22 @@
         "REQ-5"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-add-a-couple-photo-image-to-the-homepage-inside-the-main-question-card-visually-integrated-with-the-existing-valentine-theme-rounded-corners-subtle-border-shadow-and-positioned-so-it-does-not-interfere-with-the-yes-no-interaction-including-the-yes-button-growth-behavior",
+      "title": "Add a couple photo image to the homepage inside the main question card, visually integrated with the existing Valentine theme (rounded corners, subtle border/shadow), and positioned so it does not interfere with the Yes/No interaction (including the Yes button growth behavior).",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-the-couple-photo-as-a-static-asset-under-frontend-public-assets-generated-and-reference-it-directly-from-the-homepage-ui-do-not-serve-images-from-the-backend",
+      "title": "Add the couple photo as a static asset under `frontend/public/assets/generated/` and reference it directly from the homepage UI (do not serve images from the backend).",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -66,6 +83,12 @@
     {
       "id": "AR-3",
       "summary": "Yes-button behavior: show popup modal with custom image and the provided celebratory note/message",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Add a personal/couple photo image to the website homepage",
       "reqIds": [],
       "status": "pending"
     }
