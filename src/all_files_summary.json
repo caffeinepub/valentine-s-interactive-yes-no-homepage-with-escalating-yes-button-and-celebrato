@@ -1,0 +1,15 @@
+{
+  "backend/main.mo": "Empty Motoko actor placeholder.",
+  "feature_evidence.json": "Feature evidence report mapping Valentine UI requirements to source files.",
+  "frontend-file-summaries.txt": "Text listing short descriptions of key frontend files.",
+  "frontend/index.css": "Tailwind base setup with custom Valentine-themed OKLCH variables and light/dark mode values.",
+  "frontend/index.html": "Root HTML file mounting the React app and loading main.tsx.",
+  "frontend/src/App.tsx": "Main page with escalating Yes/No logic, animated hearts, error message, and modal trigger.",
+  "frontend/src/components/ValentineModal.tsx": "Popup modal showing the celebration image and message with animations and close behaviors.",
+  "frontend/src/hooks/useActor.ts": "React hook creating and refreshing a backend actor based on Internet Identity state.",
+  "frontend/src/hooks/useInternetIdentity.ts": "React context and hooks managing Internet Identity login, stored identities, and status flags.",
+  "frontend/src/index.css": "Configures Tailwind base layers and defines extensive OKLCH CSS variables for light and dark themes, plus custom animation delay utilities.",
+  "frontend/src/main.tsx": "Entry point that initializes React, wraps the app with React Query and Internet Identity providers, and loads global styles.",
+  "frontend/tailwind.config.js": "Tailwind configuration extending theme colors from OKLCH CSS variables, adding plugins, custom radii, shadows, fonts, keyframes, and animations.",
+  "project_state.json": "Project metadata describing the Valentine website’s purpose, features, image requirements, and architectural notes."
+}

@@ -1,0 +1,118 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        --radius: 1rem;
+        /* Valentine theme - warm reds, pinks, and creams */
+        --background: 0.98 0.015 15;
+        --foreground: 0.25 0.08 15;
+        --card: 1 0.01 15;
+        --card-foreground: 0.25 0.08 15;
+        --popover: 1 0.01 15;
+        --popover-foreground: 0.25 0.08 15;
+        --primary: 0.55 0.22 15;
+        --primary-foreground: 0.98 0.01 15;
+        --secondary: 0.95 0.02 15;
+        --secondary-foreground: 0.35 0.08 15;
+        --muted: 0.95 0.02 15;
+        --muted-foreground: 0.55 0.05 15;
+        --accent: 0.92 0.03 15;
+        --accent-foreground: 0.35 0.08 15;
+        --destructive: 0.55 0.22 15;
+        --destructive-foreground: 0.98 0.01 15;
+        --border: 0.90 0.03 15;
+        --input: 0.90 0.03 15;
+        --ring: 0.60 0.20 15;
+        --chart-1: 0.60 0.20 15;
+        --chart-2: 0.65 0.18 25;
+        --chart-3: 0.70 0.15 35;
+        --chart-4: 0.55 0.22 10;
+        --chart-5: 0.58 0.20 20;
+        --sidebar: 0.98 0.015 15;
+        --sidebar-foreground: 0.25 0.08 15;
+        --sidebar-primary: 0.55 0.22 15;
+        --sidebar-primary-foreground: 0.98 0.01 15;
+        --sidebar-accent: 0.95 0.02 15;
+        --sidebar-accent-foreground: 0.35 0.08 15;
+        --sidebar-border: 0.90 0.03 15;
+        --sidebar-ring: 0.60 0.20 15;
+    }
+
+    .dark {
+        --background: 0.20 0.08 15;
+        --foreground: 0.95 0.02 15;
+        --card: 0.25 0.08 15;
+        --card-foreground: 0.95 0.02 15;
+        --popover: 0.28 0.08 15;
+        --popover-foreground: 0.95 0.02 15;
+        --primary: 0.85 0.04 15;
+        --primary-foreground: 0.25 0.08 15;
+        --secondary: 0.30 0.08 15;
+        --secondary-foreground: 0.95 0.02 15;
+        --muted: 0.30 0.08 15;
+        --muted-foreground: 0.65 0.05 15;
+        --accent: 0.40 0.10 15;
+        --accent-foreground: 0.95 0.02 15;
+        --destructive: 0.60 0.20 15;
+        --destructive-foreground: 0.25 0.08 15;
+        --border: 0.35 0.08 15;
+        --input: 0.35 0.08 15;
+        --ring: 0.55 0.15 15;
+        --chart-1: 0.60 0.20 15;
+        --chart-2: 0.65 0.18 25;
+        --chart-3: 0.70 0.15 35;
+        --chart-4: 0.55 0.22 10;
+        --chart-5: 0.58 0.20 20;
+        --sidebar: 0.25 0.08 15;
+        --sidebar-foreground: 0.95 0.02 15;
+        --sidebar-primary: 0.60 0.20 15;
+        --sidebar-primary-foreground: 0.95 0.02 15;
+        --sidebar-accent: 0.30 0.08 15;
+        --sidebar-accent-foreground: 0.95 0.02 15;
+        --sidebar-border: 0.35 0.08 15;
+        --sidebar-ring: 0.50 0.15 15;
+    }
+
+    * {
+        @apply border-border;
+    }
+    body {
+        @apply bg-background text-foreground;
+    }
+}
+
+@layer utilities {
+    .animate-pulse {
+        animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+    
+    .delay-75 {
+        animation-delay: 75ms;
+    }
+    
+    .delay-100 {
+        animation-delay: 100ms;
+    }
+    
+    .delay-150 {
+        animation-delay: 150ms;
+    }
+    
+    .delay-200 {
+        animation-delay: 200ms;
+    }
+    
+    .delay-250 {
+        animation-delay: 250ms;
+    }
+    
+    .delay-300 {
+        animation-delay: 300ms;
+    }
+    
+    .delay-500 {
+        animation-delay: 500ms;
+    }
+}

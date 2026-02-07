@@ -1,0 +1,77 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 3,
+  "summary": "Valentine’s website for Jishone to ask annammooo to be his valentine, featuring an interactive Yes/No prompt that escalates until Yes is chosen, then shows a popup with a custom image and romantic message.",
+  "architectural_notes": [
+    "Single-page Valentine website with interactive button logic and modal popup on success."
+  ],
+  "known_issues": [],
+  "isFixRequest": false,
+  "imageRequirements": "## Required Images\n- Cute Valentine illustration featuring hearts and a romantic vibe, suitable for a popup (valentine-popup-illustration.dim_1024x1024.png)",
+  "existing_features": [
+    {
+      "id": "feature-create-a-single-page-valentine-s-website-homepage-that-displays-the-question-text-annammooo-will-you-be-my-valentine-with-two-buttons-yes-and-no",
+      "title": "Create a single-page Valentine’s website homepage that displays the question text: “annammooo will you be my valentine” with two buttons: “Yes” and “No”.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-the-interactive-escalation-behavior-for-the-no-button-when-no-is-clicked-show-an-error-try-again-message-and-increase-the-size-and-or-prominence-of-the-yes-button-progressively-after-each-no-click-repeat-indefinitely-until-yes-is-clicked-ensure-that-as-the-yes-button-grows-the-no-button-becomes-effectively-hidden-behind-under-the-yes-button-by-the-time-sufficient-no-clicks-occur",
+      "title": "Implement the interactive escalation behavior for the “No” button: when “No” is clicked, show an error/try-again message and increase the size (and/or prominence) of the “Yes” button progressively after each “No” click; repeat indefinitely until “Yes” is clicked. Ensure that as the “Yes” button grows, the “No” button becomes effectively hidden behind/under the “Yes” button by the time sufficient “No” clicks occur.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-when-the-user-clicks-yes-show-a-popup-modal-that-includes-1-a-custom-image-and-2-the-exact-note-text-yayyy-you-made-jishone-the-happiest-man-on-earth-i-don-t-need-big-promises-just-you-by-my-side-as-we-grow-and-figure-life-out-together",
+      "title": "When the user clicks “Yes”, show a popup modal that includes (1) a custom image and (2) the exact note text:\n“Yayyy!! You made Jishone the happiest man on earth.\nI don’t need big promises. just you, by my side, as we grow and figure life out together”",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-establish-a-cohesive-valentine-themed-visual-design-colors-typography-spacing-and-component-styling-and-apply-it-consistently-across-the-homepage-buttons-error-message-and-modal-avoid-a-blue-purple-primary-palette",
+      "title": "Establish a cohesive Valentine-themed visual design (colors, typography, spacing, and component styling) and apply it consistently across the homepage, buttons, error message, and modal. Avoid a blue/purple primary palette.",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-the-required-generated-image-s-to-the-frontend-as-static-assets-under-frontend-public-assets-generated-and-reference-them-directly-from-the-ui-do-not-serve-images-from-the-backend",
+      "title": "Add the required generated image(s) to the frontend as static assets under `frontend/public/assets/generated/` and reference them directly from the UI (do not serve images from the backend).",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Homepage prompt: “annammooo will you be my valentine” with Yes/No buttons",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "No-button behavior: show error/try-again message and enlarge Yes button progressively; continue until Yes is selected, with No eventually hidden behind the large Yes button",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Yes-button behavior: show popup modal with custom image and the provided celebratory note/message",
+      "reqIds": [],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "Valentine’s interactive Yes/No homepage with escalating Yes button and celebratory modal",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

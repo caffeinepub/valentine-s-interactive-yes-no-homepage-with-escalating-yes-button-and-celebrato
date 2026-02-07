@@ -1,0 +1,6 @@
+{
+  "frontend/src/App.tsx": "Main Valentine's homepage component with interactive Yes/No buttons that escalate (Yes grows, No fades) on each No click, displays error messages, and opens a celebratory modal on Yes click.",
+  "frontend/src/components/ValentineModal.tsx": "Modal component that displays the celebration image and romantic message when Yes is clicked, with backdrop click and Escape key dismissal support.",
+  "frontend/src/index.css": "Global styles with Valentine-themed OKLCH color system featuring warm reds, pinks, and creams for both light and dark modes, plus custom animation utilities.",
+  "frontend/tailwind.config.js": "Tailwind configuration with extended Valentine theme colors and custom border radius settings."
+}

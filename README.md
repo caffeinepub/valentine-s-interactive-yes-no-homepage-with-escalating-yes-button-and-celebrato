@@ -1,2 +1,3 @@
-# valentine-s-interactive-yes-no-homepage-with-escalating-yes-button-and-celebrato
-Exported from Caffeine project: Valentine’s interactive Yes/No homepage with escalating Yes button and celebratory modal
+## Valentine’s interactive Yes/No homepage with escalating Yes button and celebratory modal
+
+To run app build and run docker image: `docker build -t app . docker run -it --network host app`
