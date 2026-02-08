@@ -9,9 +9,14 @@ interface ValentineModalProps {
 
 export default function ValentineModal({ isOpen, onClose }: ValentineModalProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const { previewSrc, error: imageError, isLoading, handleFileSelect } = useClientImagePreview(
-    '/assets/generated/valentine-popup-illustration.dim_1024x1024.png'
-  );
+  const { 
+    displaySrc, 
+    error: imageError, 
+    isLoading, 
+    handleFileSelect,
+    handleImageLoadSuccess,
+    handleImageLoadError
+  } = useClientImagePreview('/assets/generated/image.jpg');
 
   // Handle escape key
   useEffect(() => {
@@ -83,9 +88,11 @@ export default function ValentineModal({ isOpen, onClose }: ValentineModalProps)
             <div className="relative group max-w-md">
               <div className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white dark:border-rose-800">
                 <img
-                  src={previewSrc || '/assets/generated/valentine-popup-illustration.dim_1024x1024.png'}
+                  src={displaySrc}
                   alt="Valentine celebration"
                   className="w-full h-auto"
+                  onLoad={handleImageLoadSuccess}
+                  onError={handleImageLoadError}
                 />
                 {/* Image picker overlay button */}
                 <button

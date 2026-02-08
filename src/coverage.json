@@ -1,24 +1,45 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-07T21:35:33.938Z",
+  "generatedAt": "2026-02-08T02:44:46.681Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 1,
-    "implemented": 1,
+    "total": 3,
+    "implemented": 2,
     "items": [
       {
-        "id": "REQ-12",
-        "summary": "Update the homepage headline/prompt text on the main question card to exactly: \"Annammooo!! Will you be my valentine????\" (including capitalization and punctuation).",
+        "id": "REQ-16",
+        "summary": "Add the user-uploaded image files `IMG_20260208_030749.jpg` and `image.jpg` to the frontend static assets folder `frontend/public/assets/generated/` and ensure they are included in the production build output.",
+        "status": "missing",
+        "plannedFiles": [
+          "frontend/public/assets/generated/IMG_20260208_030749.jpg",
+          "frontend/public/assets/generated/image.jpg"
+        ],
+        "matchedFiles": []
+      },
+      {
+        "id": "REQ-17",
+        "summary": "Update the homepage couple-photo default image to use the uploaded image `IMG_20260208_030749.jpg` as the initial (fallback) image shown before any user selects a different image via the homepage file picker.",
         "status": "implemented",
         "plannedFiles": [
           "frontend/src/App.tsx"
         ],
         "matchedFiles": [
           "frontend/src/App.tsx"
+        ]
+      },
+      {
+        "id": "REQ-18",
+        "summary": "Update the popup modal default image to use the uploaded image `image.jpg` as the initial (fallback) image shown before any user selects a different image via the modal file picker.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/components/ValentineModal.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/components/ValentineModal.tsx"
         ]
       }
     ]
@@ -29,6 +50,7 @@
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
     "frontend/src/App.tsx",
+    "frontend/src/components/ValentineModal.tsx",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

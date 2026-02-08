@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 11,
+  "projectStateVersion": 15,
   "summary": "Valentine’s website for Jishone to ask Annammooo to be his valentine, featuring an interactive Yes/No prompt that escalates until Yes is chosen, then shows a popup with a custom image and romantic message; also support adding a custom image on the second response page via client-side image selection.",
   "architectural_notes": [
     "Single-page Valentine website with interactive button logic and modal popup on success.",
@@ -8,9 +8,13 @@
     "Add a client-side image picker (file input) to let the user select a local image and render it on the homepage without requiring backend upload/serving.",
     "Ensure displayed name text uses exact capitalization: “Annammooo” (not “annammooo”).",
     "Add a client-side image picker (file input) on the second response page to render a user-selected image without backend upload/serving.",
-    "Homepage question text should be updated to exactly: “Annammooo!! Will you be my valentine????” (including capitalization and punctuation)."
+    "Homepage question text should be updated to exactly: “Annammooo!! Will you be my valentine????” (including capitalization and punctuation).",
+    "Uploaded image preview currently falls back to a default/generated image when the selected file fails to load/preview; improve reliability and/or adjust fallback behavior so the user-selected image is shown consistently.",
+    "Final page must include two specific images: one displayed on the homepage and a different one displayed in the success popup/modal (both referenced from frontend static assets, no backend image serving)."
   ],
-  "known_issues": [],
+  "known_issues": [
+    "User-selected/uploaded image sometimes does not appear; UI shows a random/default fallback image instead."
+  ],
   "isFixRequest": false,
   "existing_features": [
     {
@@ -108,6 +112,46 @@
         "REQ-12"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-update-the-client-side-image-preview-logic-so-that-once-the-user-selects-an-image-the-ui-displays-that-selected-image-reliably-instead-of-reverting-to-the-default-fallback-image-when-previewing-or-loading-fails",
+      "title": "Update the client-side image preview logic so that once the user selects an image, the UI displays that selected image reliably instead of reverting to the default/fallback image when previewing or loading fails.",
+      "reqIds": [
+        "REQ-13"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-harden-the-image-preview-hook-against-common-reliability-issues-by-preventing-stale-async-reads-from-overwriting-newer-selections-and-by-cleaning-up-any-temporary-resources-used-for-previews",
+      "title": "Harden the image preview hook against common reliability issues by preventing stale async reads from overwriting newer selections, and by cleaning up any temporary resources used for previews.",
+      "reqIds": [
+        "REQ-14"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-explicit-image-load-error-handling-in-the-homepage-and-modal-image-components-so-load-failures-produce-a-clear-inline-error-message-and-a-predictable-visual-state",
+      "title": "Add explicit image load error handling in the homepage and modal image components so load failures produce a clear inline error message and a predictable visual state.",
+      "reqIds": [
+        "REQ-15"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-homepage-couple-photo-default-image-to-use-the-uploaded-image-img-20260208-030749-jpg-as-the-initial-fallback-image-shown-before-any-user-selects-a-different-image-via-the-homepage-file-picker",
+      "title": "Update the homepage couple-photo default image to use the uploaded image `IMG_20260208_030749.jpg` as the initial (fallback) image shown before any user selects a different image via the homepage file picker.",
+      "reqIds": [
+        "REQ-17"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-popup-modal-default-image-to-use-the-uploaded-image-image-jpg-as-the-initial-fallback-image-shown-before-any-user-selects-a-different-image-via-the-modal-file-picker",
+      "title": "Update the popup modal default image to use the uploaded image `image.jpg` as the initial (fallback) image shown before any user selects a different image via the modal file picker.",
+      "reqIds": [
+        "REQ-18"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -151,6 +195,14 @@
       "id": "AR-7",
       "summary": "Update homepage question text to exactly: “Annammooo!! Will you be my valentine????”",
       "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-8",
+      "summary": "Add the user-uploaded image files `IMG_20260208_030749.jpg` and `image.jpg` to the frontend static assets folder `frontend/public/assets/generated/` and ensure they are included in the production build output.",
+      "reqIds": [
+        "REQ-16"
+      ],
       "status": "pending"
     }
   ],

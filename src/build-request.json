@@ -1,38 +1,81 @@
 {
   "kind": "build_request",
-  "title": "Update homepage prompt text punctuation and capitalization",
+  "title": "Use the 2 user-uploaded images as the default homepage and popup images",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-12",
-      "text": "Update the homepage headline/prompt text on the main question card to exactly: \"Annammooo!! Will you be my valentine????\" (including capitalization and punctuation).",
+      "id": "REQ-16",
+      "text": "Add the user-uploaded image files `IMG_20260208_030749.jpg` and `image.jpg` to the frontend static assets folder `frontend/public/assets/generated/` and ensure they are included in the production build output.",
       "target": "frontend",
       "source": {
         "messageIds": [
           "msg-1"
         ],
         "quotes": [
-          "Can you alter the test in the homepage to Annammooo!! Will you be my valentine????"
+          "I need these two images to be in the final page, 1 on the homepage and other on the popup page"
         ]
       },
       "acceptanceCriteria": [
-        "On the homepage, the main headline text renders exactly as: \"Annammooo!! Will you be my valentine????\"",
-        "No other user-facing text on the page is changed as part of this update.",
-        "The Yes/No button interactions and modal behavior continue to work as before."
+        "Both files exist at `frontend/public/assets/generated/IMG_20260208_030749.jpg` and `frontend/public/assets/generated/image.jpg`.",
+        "The app loads these images via `/assets/generated/IMG_20260208_030749.jpg` and `/assets/generated/image.jpg` without going through the backend."
+      ]
+    },
+    {
+      "id": "REQ-17",
+      "text": "Update the homepage couple-photo default image to use the uploaded image `IMG_20260208_030749.jpg` as the initial (fallback) image shown before any user selects a different image via the homepage file picker.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "I need these two images to be in the final page, 1 on the homepage and other on the popup page"
+        ]
+      },
+      "acceptanceCriteria": [
+        "On a fresh load (no user selection), the homepage image area shows `IMG_20260208_030749.jpg`.",
+        "The existing homepage image picker continues to work and can override the default image with a user-selected file."
+      ]
+    },
+    {
+      "id": "REQ-18",
+      "text": "Update the popup modal default image to use the uploaded image `image.jpg` as the initial (fallback) image shown before any user selects a different image via the modal file picker.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "I need these two images to be in the final page, 1 on the homepage and other on the popup page"
+        ]
+      },
+      "acceptanceCriteria": [
+        "When the user clicks “Yes” to open the modal, the modal image area shows `image.jpg` by default.",
+        "The existing modal image picker continues to work and can override the default image with a user-selected file."
       ]
     }
   ],
   "constraints": [
-    "Do not modify any files under frontend/src/components/ui (read-only components).",
-    "Keep the existing Valentine-themed visual styling and interactions unchanged aside from the headline text update."
+    "Frontend immutable paths must not be edited: `frontend/src/hooks/useInternetIdentity.ts`, `frontend/src/hooks/useInternetIdentity.tsx`, `frontend/src/hooks/useActor.ts`, `frontend/src/main.tsx`, and anything under `frontend/src/components/ui`.",
+    "Do not serve images from the backend; images must be referenced as static assets from `frontend/public/assets/generated/`.",
+    "Use English for any user-facing text."
   ],
   "nonGoals": [
-    "No backend/canister changes.",
-    "No changes to the success modal content or image picker behavior.",
-    "No new images or asset changes."
+    "Adding any new backend storage or upload endpoints for images.",
+    "Changing the existing Yes/No interaction behavior, modal message copy, or overall Valentine theme styling beyond what is necessary to swap the default images."
   ],
   "imageRequirements": {
     "required": [],
     "edits": []
+  },
+  "userProfileUpdate": {
+    "goalsToAdd": [],
+    "goalsToRemove": [],
+    "preferencesToAdd": [],
+    "preferencesToRemove": [],
+    "miscToAdd": [],
+    "miscToRemove": [],
+    "fieldsToSet": {},
+    "fieldsToDelete": []
   }
 }

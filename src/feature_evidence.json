@@ -2,8 +2,8 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-update-the-homepage-headline-prompt-text-on-the-main-question-card-to-exactly-annammooo-will-you-be-my-valentine-including-capitalization-and-punctuation",
-      "featureTitle": "Update the homepage headline/prompt text on the main question card to exactly: \"Annammooo!! Will you be my valentine????\" (including capitalization and punctuation).",
+      "featureId": "feature-update-the-homepage-couple-photo-default-image-to-use-the-uploaded-image-img-20260208-030749-jpg-as-the-initial-fallback-image-shown-before-any-user-selects-a-different-image-via-the-homepage-file-picker",
+      "featureTitle": "Update the homepage couple-photo default image to use the uploaded image `IMG_20260208_030749.jpg` as the initial (fallback) image shown before any user selects a different image via the homepage file picker.",
       "files": [
         "frontend/src/App.tsx"
       ],
@@ -15,7 +15,25 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-12"
+        "REQ-17"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-update-the-popup-modal-default-image-to-use-the-uploaded-image-image-jpg-as-the-initial-fallback-image-shown-before-any-user-selects-a-different-image-via-the-modal-file-picker",
+      "featureTitle": "Update the popup modal default image to use the uploaded image `image.jpg` as the initial (fallback) image shown before any user selects a different image via the modal file picker.",
+      "files": [
+        "frontend/src/components/ValentineModal.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-18"
       ],
       "confidence": "high"
     }

@@ -1,10 +1,11 @@
 # Specification
 
 ## Summary
-**Goal:** Update the homepage main question card headline to match the exact requested capitalization and punctuation.
+**Goal:** Use the two user-uploaded images as the default images shown on the homepage and in the popup modal.
 
 **Planned changes:**
-- Change the homepage main headline/prompt text to exactly: "Annammooo!! Will you be my valentine????"
-- Ensure no other homepage text, styling, interactions, or modal behavior is altered.
+- Add `IMG_20260208_030749.jpg` and `image.jpg` to `frontend/public/assets/generated/` so they ship as static frontend assets in production.
+- Update the homepage default/fallback couple photo to load `/assets/generated/IMG_20260208_030749.jpg` before any user selects a different image via the homepage file picker.
+- Update the popup modal default/fallback image to load `/assets/generated/image.jpg` before any user selects a different image via the modal file picker.
 
-**User-visible outcome:** The homepage displays the updated headline text exactly as specified, while the existing Yes/No interactions and modal behavior continue to work as before.
+**User-visible outcome:** On first load, the homepage displays `IMG_20260208_030749.jpg` by default, and when opening the modal it displays `image.jpg` by default; both can still be replaced using the existing image pickers.

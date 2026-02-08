@@ -9,9 +9,14 @@ function App() {
   const [showModal, setShowModal] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const { previewSrc, error: imageError, isLoading, handleFileSelect } = useClientImagePreview(
-    '/assets/generated/couple-photo.dim_1200x1200.jpg'
-  );
+  const { 
+    displaySrc, 
+    error: imageError, 
+    isLoading, 
+    handleFileSelect,
+    handleImageLoadSuccess,
+    handleImageLoadError
+  } = useClientImagePreview('/assets/generated/IMG_20260208_030749.jpg');
 
   const handleNoClick = () => {
     setNoClickCount((prev) => prev + 1);
@@ -68,9 +73,11 @@ function App() {
             <div className="flex justify-center mb-4">
               <div className="relative group">
                 <img
-                  src={previewSrc || '/assets/generated/couple-photo.dim_1200x1200.jpg'}
+                  src={displaySrc}
                   alt="Our couple photo"
                   className="w-full max-w-sm h-auto rounded-2xl shadow-xl border-4 border-rose-200 dark:border-rose-700 object-cover"
+                  onLoad={handleImageLoadSuccess}
+                  onError={handleImageLoadError}
                 />
                 {/* Image picker overlay button */}
                 <button
