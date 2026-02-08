@@ -18,7 +18,7 @@ export default function ValentineModal({ isOpen, onClose }: ValentineModalProps)
     handleFileSelect,
     handleImageLoadSuccess,
     handleImageLoadError
-  } = useClientImagePreview(getAssetUrl('assets/generated/valentine-popup-illustration.dim_1024x1024.png'));
+  } = useClientImagePreview(getAssetUrl('assets/image-2.jpg'));
 
   // Handle escape key
   useEffect(() => {

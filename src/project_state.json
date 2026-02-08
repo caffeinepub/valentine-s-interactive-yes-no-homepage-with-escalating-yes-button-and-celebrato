@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 23,
+  "projectStateVersion": 29,
   "summary": "Valentine’s website for Jishone to ask Annammooo to be his valentine, featuring an interactive Yes/No prompt that escalates until Yes is chosen, then shows a popup with a custom image and romantic message; also support adding a custom image on the second response page via client-side image selection.",
   "architectural_notes": [
     "Single-page Valentine website with interactive button logic and modal popup on success.",
@@ -10,13 +10,17 @@
     "Add a client-side image picker (file input) on the second response page to render a user-selected image without backend upload/serving.",
     "Homepage question text should be updated to exactly: “Annammooo!! Will you be my valentine????” (including capitalization and punctuation).",
     "Uploaded image preview currently falls back to a default/generated image when the selected file fails to load/preview; improve reliability and/or adjust fallback behavior so the user-selected image is shown consistently.",
-    "Final page must include two specific images: one displayed on the homepage and a different one displayed in the success popup/modal (both referenced from frontend static assets, no backend image serving)."
+    "Final page must include two specific images: one displayed on the homepage and a different one displayed in the success popup/modal (both referenced from frontend static assets, no backend image serving).",
+    "Caffeine does not provide a user-accessible file manager to browse/edit `frontend/public/assets/generated/`; static assets must be added by the assistant during a build or via images uploaded in chat.",
+    "Homepage should display exactly one image; the success popup/modal should display a different image, with no additional/secondary photo rendered on the homepage."
   ],
   "known_issues": [
     "User-selected/uploaded image sometimes does not appear; UI shows a random/default fallback image instead.",
     "Displayed image shows a “failed to load” error (likely broken/missing static asset path or build output not including the image).",
     "Build/deploy pipeline hit a configuration problem (Caffeine) when attempting to apply the image asset fix; retry requested.",
-    "Deployed build still shows “default image cannot be loaded” on the first page (default asset load failing in production)."
+    "Deployed build still shows “default image cannot be loaded” on the first page (default asset load failing in production).",
+    "Deployed UI shows an error message like “default image could not be uploaded” (likely intended “loaded”), and the default image still isn’t displaying correctly.",
+    "Build/deploy attempts are repeatedly failing due to an internal/configuration error in Caffeine, blocking the image placement update."
   ],
   "isFixRequest": true,
   "existing_features": [
@@ -195,6 +199,54 @@
         "REQ-27"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-update-the-homepage-frontend-src-app-tsx-to-reference-the-newly-uploaded-images-using-the-existing-deployment-safe-getasseturl-helper-vite-base-url-compatible-use-assets-generated-img-20260208-030749-4-jpg-as-the-homepage-main-couple-photo-default-fallback-passed-into-useclientimagepreview-and-render-assets-generated-image-2-jpg-as-the-secondary-photo-element",
+      "title": "Update the homepage (`frontend/src/App.tsx`) to reference the newly uploaded images using the existing deployment-safe `getAssetUrl(...)` helper (Vite `BASE_URL` compatible): use `assets/generated/IMG_20260208_030749-4.jpg` as the homepage main couple-photo default/fallback passed into `useClientImagePreview(...)`, and render `assets/generated/image-2.jpg` as the secondary photo element.",
+      "reqIds": [
+        "REQ-29"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-ensure-that-after-adding-these-assets-and-updating-references-the-homepage-does-not-show-an-inline-default-image-load-error-when-the-user-has-not-selected-any-custom-image-file-assuming-the-assets-are-present-and-valid",
+      "title": "Ensure that after adding these assets and updating references, the homepage does not show an inline default-image load error when the user has not selected any custom image file (assuming the assets are present and valid).",
+      "reqIds": [
+        "REQ-30"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-ensure-the-homepage-default-couple-photo-image-loads-successfully-in-production-when-the-user-has-not-selected-any-file-without-showing-the-default-image-error-message",
+      "title": "Ensure the homepage default couple-photo image loads successfully in production when the user has not selected any file, without showing the default-image error message.",
+      "reqIds": [
+        "REQ-32"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-verify-the-required-default-image-files-referenced-by-the-homepage-and-modal-actually-exist-in-frontend-public-assets-generated-with-the-exact-filenames-and-are-included-in-the-production-build-output-update-references-if-there-is-any-filename-case-mismatch",
+      "title": "Verify the required default image files referenced by the homepage and modal actually exist in `frontend/public/assets/generated/` with the exact filenames and are included in the production build output; update references if there is any filename/case mismatch.",
+      "reqIds": [
+        "REQ-34"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-homepage-frontend-src-app-tsx-so-it-displays-exactly-one-photo-the-main-couple-photo-area-with-the-existing-file-picker-preview-and-remove-the-secondary-static-photo-element-currently-rendered-alongside-it",
+      "title": "Update the homepage (frontend/src/App.tsx) so it displays exactly one photo (the main couple photo area with the existing file picker/preview) and remove the secondary/static photo element currently rendered alongside it.",
+      "reqIds": [
+        "REQ-35"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-success-popup-modal-frontend-src-components-valentinemodal-tsx-so-its-default-image-uses-the-other-static-photo-the-one-removed-from-the-homepage-and-ensure-that-photo-is-only-shown-in-the-modal-after-the-user-clicks-yes-keep-the-existing-modal-image-picker-preview-behavior-intact",
+      "title": "Update the success popup modal (frontend/src/components/ValentineModal.tsx) so its default image uses the other static photo (the one removed from the homepage), and ensure that photo is only shown in the modal after the user clicks “Yes”. Keep the existing modal image picker/preview behavior intact.",
+      "reqIds": [
+        "REQ-36"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -284,6 +336,36 @@
       "reqIds": [
         "REQ-26"
       ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-15",
+      "summary": "Add the newly uploaded image files `IMG_20260208_030749-4.jpg` and `image-2.jpg` to the frontend static assets folder at `frontend/public/assets/generated/` with the exact same filenames (including case and punctuation) so they are included in production builds.",
+      "reqIds": [
+        "REQ-28"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-16",
+      "summary": "Fix the user-facing inline error text so it never says the default image “could not be uploaded” (this app only loads local/static images and client-side previews). Ensure the wording uses “loaded” (not “uploaded”) and is clear English.",
+      "reqIds": [
+        "REQ-31"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-18",
+      "summary": "Ensure the success modal’s default image source points to the intended default static asset under `frontend/public/assets/generated/` (use the existing deployment-safe `getAssetUrl(...)`), and that it loads successfully in production without showing a default-image error when the user has not selected any file.",
+      "reqIds": [
+        "REQ-33"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-19",
+      "summary": "Ensure exactly one static image is shown on the homepage and the other static image is shown only in the success popup/modal after clicking Yes (no extra/secondary photo element on homepage).",
+      "reqIds": [],
       "status": "pending"
     }
   ],

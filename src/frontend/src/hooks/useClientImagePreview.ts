@@ -25,6 +25,12 @@ export function useClientImagePreview(defaultSrc: string): UseClientImagePreview
   // Track object URLs for cleanup
   const objectUrlRef = useRef<string | null>(null);
 
+  // Reset default image failure state when defaultSrc changes
+  useEffect(() => {
+    setDefaultImageFailed(false);
+    setError(null);
+  }, [defaultSrc]);
+
   // Cleanup object URLs on unmount
   useEffect(() => {
     return () => {

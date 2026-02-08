@@ -1,43 +1,38 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Add uploaded images as public assets and display them on homepage via getAssetUrl",
+  "title": "Single homepage image and move secondary image into Yes-success modal",
   "requirements": [
     {
-      "id": "REQ-26",
-      "summary": "Add the two uploaded JPGs to frontend public generated assets so they are shipped and served as static files.",
+      "id": "REQ-35",
+      "summary": "Remove the secondary/static homepage photo so the homepage shows only the main image picker/preview photo, keeping layout balanced and Yes/No behavior unaffected.",
       "acceptanceCriteria": [
-        "`frontend/public/assets/generated/IMG_20260208_030749-3.jpg` exists in the repo and is served by the app in production.",
-        "`frontend/public/assets/generated/image-1.jpg` exists in the repo and is served by the app in production.",
-        "No backend image serving is introduced; both images are referenced as public static assets."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/public/assets/generated/IMG_20260208_030749-3.jpg",
-          "operation": "create",
-          "description": "Add the uploaded image file with the exact filename and casing at `frontend/public/assets/generated/IMG_20260208_030749-3.jpg` so it is included in production builds."
-        },
-        {
-          "path": "frontend/public/assets/generated/image-1.jpg",
-          "operation": "create",
-          "description": "Add the uploaded image file with the exact filename and casing at `frontend/public/assets/generated/image-1.jpg` so it is included in production builds."
-        }
-      ]
-    },
-    {
-      "id": "REQ-27",
-      "summary": "Update homepage to use IMG_20260208_030749-3.jpg as the default couple photo and render image-1.jpg as a secondary visible photo, both loaded via getAssetUrl without absolute-root paths.",
-      "acceptanceCriteria": [
-        "Before any user file selection, the main homepage couple photo renders from `getAssetUrl('assets/generated/IMG_20260208_030749-3.jpg')` and does not trigger the inline default-image load error.",
-        "`image-1.jpg` is also displayed on the homepage (e.g., as a secondary smaller image or inset) and is loaded via `getAssetUrl('assets/generated/image-1.jpg')`.",
-        "The secondary image placement does not overlap or block the Yes/No buttons at any stage, including after multiple No clicks when the Yes button scales up.",
-        "All homepage references to these default assets use `getAssetUrl(...)` (no `src=\"/assets/...\"` absolute-root paths)."
+        "On the homepage, only one photo is visible (the photo tied to the existing homepage file picker).",
+        "The secondary photo currently rendered from getAssetUrl('assets/image-2.jpg') is no longer rendered anywhere on the homepage.",
+        "Homepage layout remains visually balanced after removing the second image, and does not interfere with the Yes/No interaction or the Yes-button growth behavior."
       ],
       "file_operations": [
         {
           "path": "frontend/src/App.tsx",
           "operation": "modify",
-          "description": "Update the `useClientImagePreview(...)` default to `getAssetUrl('assets/generated/IMG_20260208_030749-3.jpg')` and add a secondary, visibly-rendered `<img>` on the homepage using `getAssetUrl('assets/generated/image-1.jpg')`, positioned in the existing layout so it cannot overlap/block the Yes/No buttons (including during Yes-button scale growth). Ensure no absolute-root asset paths are introduced."
+          "description": "Delete the secondary/static photo block that renders getAssetUrl('assets/image-2.jpg') and adjust the surrounding container/layout classes so the single remaining image picker/preview area stays centered and visually balanced without affecting the existing Yes/No interaction or Yes-button growth behavior."
+        }
+      ]
+    },
+    {
+      "id": "REQ-36",
+      "summary": "Change the success popup modal default image to use the static photo removed from the homepage, shown only after clicking Yes, while preserving the modal image picker/preview behavior and getAssetUrl usage.",
+      "acceptanceCriteria": [
+        "When the modal opens (after clicking Yes), the modal shows the second static photo by default (instead of the current valentine-popup-illustration default).",
+        "The second static photo is not shown anywhere on the homepage.",
+        "The modal’s existing image picker still allows selecting a device image and previewing it in the modal, with existing validation and inline error handling preserved.",
+        "All default static image URLs continue to be built via getAssetUrl(...) (no absolute root paths)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/ValentineModal.tsx",
+          "operation": "modify",
+          "description": "Update the useClientImagePreview defaultSrc to getAssetUrl('assets/image-2.jpg') so the modal shows that static photo by default when opened; keep the existing file input, preview/validation, and inline error rendering unchanged, and retain getAssetUrl(...) for building the static image URL."
         }
       ]
     }

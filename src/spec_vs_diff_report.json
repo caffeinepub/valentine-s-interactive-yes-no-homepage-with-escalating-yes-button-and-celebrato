@@ -1,40 +1,49 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-08T03:18:40.229Z",
-  "summary": "REQ-26 image assets were not added (no new files in the diff). App.tsx was updated to use getAssetUrl(...) for the default main image, but the diff snippet is truncated and does not conclusively show the required secondary image rendering or confirm absence of absolute-root asset paths.",
-  "missing_requirements": [
+  "generatedAt": "2026-02-08T04:17:52.255Z",
+  "summary": "REQ-35 and REQ-36 appear to be implemented: the homepage now renders a single image tied to the existing picker/preview, and the success modal’s default image has been switched to the previously-secondary static photo via getAssetUrl('assets/image-2.jpg'). However, the diff also includes several unrequested broader refactors/theme changes (CSS/Tailwind, new/expanded hook behavior, new asset URL utility, and changed default homepage image/text).",
+  "missing_requirements": [],
+  "hallucinated_features": [
     {
-      "id": "REQ-26",
-      "requirement": "Add `IMG_20260208_030749-3.jpg` and `image-1.jpg` under `frontend/public/assets/generated/` with exact filenames so they are served as public static assets.",
-      "reason": "The diff shows no added files; therefore the two required image files are not present in the changes provided.",
+      "description": "Added/modified global styling and Tailwind theme configuration beyond the requested image relocation.",
+      "reason": "BuildRequest only asks to remove a second homepage image and change the modal default image; it does not request theme system changes.",
       "evidence": [
-        "File diff summary: \"ADDED FILES: - none\""
+        "frontend/src/index.css",
+        "frontend/tailwind.config.js",
+        "frontend-file-summaries.txt"
       ]
     },
     {
-      "id": "REQ-27",
-      "requirement": "Render `image-1.jpg` visibly on the homepage via `getAssetUrl('assets/generated/image-1.jpg')` as an additional photo element that does not interfere with Yes/No interactions and Yes-button growth.",
-      "reason": "App.tsx is truncated and the provided visible portion only demonstrates the main image default using `getAssetUrl('assets/generated/IMG_20260208_030749-3.jpg')`; it does not show any code that renders the secondary `image-1.jpg` element or its layout/interaction safety.",
+      "description": "Introduced/modified a deployment-safe asset URL utility using Vite BASE_URL.",
+      "reason": "Not requested by REQ-35/REQ-36 (they only require continuing to use getAssetUrl, not adding/changing its implementation).",
       "evidence": [
-        "frontend/src/App.tsx (truncated)",
-        "frontend/src/App.tsx: `useClientImagePreview(getAssetUrl('assets/generated/IMG_20260208_030749-3.jpg'))`"
+        "frontend/src/utils/assetUrl.ts",
+        "frontend-file-summaries.txt"
       ]
     },
     {
-      "id": "REQ-27",
-      "requirement": "Ensure all homepage references to the new default assets use `getAssetUrl(...)` (no `src=\"/assets/...\"` absolute-root paths).",
-      "reason": "Because App.tsx is truncated, the diff does not provide enough evidence to verify that there are no remaining absolute-root (`/assets/...`) references elsewhere in the homepage component.",
+      "description": "Significant changes/expansion to the client image preview hook behavior (error distinctions, last-known-good tracking, stale-read protection, etc.).",
+      "reason": "REQ-36 requires preserving existing picker/preview behavior; the diff describes additional new behaviors not explicitly requested.",
       "evidence": [
-        "frontend/src/App.tsx (truncated)"
+        "frontend/src/hooks/useClientImagePreview.ts",
+        "frontend-file-summaries.txt"
+      ]
+    },
+    {
+      "description": "Changed the homepage default image asset to 'assets/IMG_20260208_030749-4.jpg' and updated headline text/punctuation.",
+      "reason": "REQ-35 only requires removing the secondary image from the homepage; it does not request changing the remaining default image or the homepage headline.",
+      "evidence": [
+        "frontend/src/App.tsx",
+        "frontend-file-summaries.txt"
       ]
     }
   ],
-  "hallucinated_features": [],
-  "confidence": 0.68,
+  "confidence": 0.74,
   "changed_files": [
     "frontend-file-summaries.txt",
     "frontend/src/App.tsx",
+    "frontend/src/components/ValentineModal.tsx",
     "project_state.json"
   ]
 }

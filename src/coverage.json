@@ -1,34 +1,35 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-08T03:18:40.231Z",
+  "generatedAt": "2026-02-08T04:17:52.258Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
     "total": 2,
-    "implemented": 1,
+    "implemented": 2,
     "items": [
       {
-        "id": "REQ-26",
-        "summary": "Add the two newly uploaded image files `IMG_20260208_030749-3.jpg` and `image-1.jpg` to the frontend static assets directory at `frontend/public/assets/generated/` with the exact same filenames (including case and punctuation) so they are included in production builds.",
-        "status": "missing",
-        "plannedFiles": [
-          "frontend/public/assets/generated/IMG_20260208_030749-3.jpg",
-          "frontend/public/assets/generated/image-1.jpg"
-        ],
-        "matchedFiles": []
-      },
-      {
-        "id": "REQ-27",
-        "summary": "Update the homepage (`frontend/src/App.tsx`) to load and display the newly added images using the existing deployment-safe `getAssetUrl(...)` helper (Vite `BASE_URL` compatible), without using absolute root paths. Use `IMG_20260208_030749-3.jpg` as the homepage couple-photo default/fallback image shown before any user selects a different file, and also render `image-1.jpg` visibly on the homepage as an additional photo element that does not interfere with the Yes/No button interaction or the Yes-button growth behavior.",
+        "id": "REQ-35",
+        "summary": "Update the homepage (frontend/src/App.tsx) so it displays exactly one photo (the main couple photo area with the existing file picker/preview) and remove the secondary/static photo element currently rendered alongside it.",
         "status": "implemented",
         "plannedFiles": [
           "frontend/src/App.tsx"
         ],
         "matchedFiles": [
           "frontend/src/App.tsx"
+        ]
+      },
+      {
+        "id": "REQ-36",
+        "summary": "Update the success popup modal (frontend/src/components/ValentineModal.tsx) so its default image uses the other static photo (the one removed from the homepage), and ensure that photo is only shown in the modal after the user clicks “Yes”. Keep the existing modal image picker/preview behavior intact.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/components/ValentineModal.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/components/ValentineModal.tsx"
         ]
       }
     ]
@@ -39,6 +40,7 @@
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
     "frontend/src/App.tsx",
+    "frontend/src/components/ValentineModal.tsx",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

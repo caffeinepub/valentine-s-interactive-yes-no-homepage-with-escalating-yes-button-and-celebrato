@@ -2,8 +2,8 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-update-the-homepage-frontend-src-app-tsx-to-load-and-display-the-newly-added-images-using-the-existing-deployment-safe-getasseturl-helper-vite-base-url-compatible-without-using-absolute-root-paths-use-img-20260208-030749-3-jpg-as-the-homepage-couple-photo-default-fallback-image-shown-before-any-user-selects-a-different-file-and-also-render-image-1-jpg-visibly-on-the-homepage-as-an-additional-photo-element-that-does-not-interfere-with-the-yes-no-button-interaction-or-the-yes-button-growth-behavior",
-      "featureTitle": "Update the homepage (`frontend/src/App.tsx`) to load and display the newly added images using the existing deployment-safe `getAssetUrl(...)` helper (Vite `BASE_URL` compatible), without using absolute root paths. Use `IMG_20260208_030749-3.jpg` as the homepage couple-photo default/fallback image shown before any user selects a different file, and also render `image-1.jpg` visibly on the homepage as an additional photo element that does not interfere with the Yes/No button interaction or the Yes-button growth behavior.",
+      "featureId": "feature-update-the-homepage-frontend-src-app-tsx-so-it-displays-exactly-one-photo-the-main-couple-photo-area-with-the-existing-file-picker-preview-and-remove-the-secondary-static-photo-element-currently-rendered-alongside-it",
+      "featureTitle": "Update the homepage (frontend/src/App.tsx) so it displays exactly one photo (the main couple photo area with the existing file picker/preview) and remove the secondary/static photo element currently rendered alongside it.",
       "files": [
         "frontend/src/App.tsx"
       ],
@@ -15,7 +15,25 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-27"
+        "REQ-35"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-update-the-success-popup-modal-frontend-src-components-valentinemodal-tsx-so-its-default-image-uses-the-other-static-photo-the-one-removed-from-the-homepage-and-ensure-that-photo-is-only-shown-in-the-modal-after-the-user-clicks-yes-keep-the-existing-modal-image-picker-preview-behavior-intact",
+      "featureTitle": "Update the success popup modal (frontend/src/components/ValentineModal.tsx) so its default image uses the other static photo (the one removed from the homepage), and ensure that photo is only shown in the modal after the user clicks “Yes”. Keep the existing modal image picker/preview behavior intact.",
+      "files": [
+        "frontend/src/components/ValentineModal.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-36"
       ],
       "confidence": "high"
     }
