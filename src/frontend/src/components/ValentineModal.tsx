@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { X, Heart, Upload } from 'lucide-react';
 import { useClientImagePreview } from '../hooks/useClientImagePreview';
+import { getAssetUrl } from '../utils/assetUrl';
 
 interface ValentineModalProps {
   isOpen: boolean;
@@ -12,11 +13,12 @@ export default function ValentineModal({ isOpen, onClose }: ValentineModalProps)
   const { 
     displaySrc, 
     error: imageError, 
-    isLoading, 
+    isLoading,
+    shouldShowImage,
     handleFileSelect,
     handleImageLoadSuccess,
     handleImageLoadError
-  } = useClientImagePreview('/assets/generated/image.jpg');
+  } = useClientImagePreview(getAssetUrl('assets/generated/valentine-popup-illustration.dim_1024x1024.png'));
 
   // Handle escape key
   useEffect(() => {
@@ -87,13 +89,24 @@ export default function ValentineModal({ isOpen, onClose }: ValentineModalProps)
           <div className="mb-8 flex justify-center animate-in slide-in-from-top duration-500 delay-200">
             <div className="relative group max-w-md">
               <div className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white dark:border-rose-800">
-                <img
-                  src={displaySrc}
-                  alt="Valentine celebration"
-                  className="w-full h-auto"
-                  onLoad={handleImageLoadSuccess}
-                  onError={handleImageLoadError}
-                />
+                {shouldShowImage ? (
+                  <img
+                    src={displaySrc}
+                    alt="Valentine celebration"
+                    className="w-full h-auto"
+                    onLoad={handleImageLoadSuccess}
+                    onError={handleImageLoadError}
+                  />
+                ) : (
+                  <div className="w-full h-64 bg-rose-100 dark:bg-rose-800 flex items-center justify-center">
+                    <div className="text-center p-6">
+                      <Heart className="w-12 h-12 text-rose-400 mx-auto mb-2" />
+                      <p className="text-sm text-rose-600 dark:text-rose-300">
+                        Image placeholder
+                      </p>
+                    </div>
+                  </div>
+                )}
                 {/* Image picker overlay button */}
                 <button
                   onClick={handleImagePickerClick}

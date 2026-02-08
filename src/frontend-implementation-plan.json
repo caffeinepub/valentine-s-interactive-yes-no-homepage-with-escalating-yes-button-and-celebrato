@@ -1,55 +1,43 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Use uploaded images as default homepage and modal images",
+  "title": "Add uploaded images as public assets and display them on homepage via getAssetUrl",
   "requirements": [
     {
-      "id": "REQ-16",
-      "summary": "Add the two user-uploaded images to frontend static assets so they ship in production builds and are loaded without the backend.",
+      "id": "REQ-26",
+      "summary": "Add the two uploaded JPGs to frontend public generated assets so they are shipped and served as static files.",
       "acceptanceCriteria": [
-        "Both files exist at `frontend/public/assets/generated/IMG_20260208_030749.jpg` and `frontend/public/assets/generated/image.jpg`.",
-        "The app loads these images via `/assets/generated/IMG_20260208_030749.jpg` and `/assets/generated/image.jpg` without going through the backend."
+        "`frontend/public/assets/generated/IMG_20260208_030749-3.jpg` exists in the repo and is served by the app in production.",
+        "`frontend/public/assets/generated/image-1.jpg` exists in the repo and is served by the app in production.",
+        "No backend image serving is introduced; both images are referenced as public static assets."
       ],
       "file_operations": [
         {
-          "path": "frontend/public/assets/generated/IMG_20260208_030749.jpg",
+          "path": "frontend/public/assets/generated/IMG_20260208_030749-3.jpg",
           "operation": "create",
-          "description": "Add the provided uploaded image to the static public assets folder so it is emitted in production builds."
+          "description": "Add the uploaded image file with the exact filename and casing at `frontend/public/assets/generated/IMG_20260208_030749-3.jpg` so it is included in production builds."
         },
         {
-          "path": "frontend/public/assets/generated/image.jpg",
+          "path": "frontend/public/assets/generated/image-1.jpg",
           "operation": "create",
-          "description": "Add the provided uploaded image to the static public assets folder so it is emitted in production builds."
+          "description": "Add the uploaded image file with the exact filename and casing at `frontend/public/assets/generated/image-1.jpg` so it is included in production builds."
         }
       ]
     },
     {
-      "id": "REQ-17",
-      "summary": "Switch the homepage couple-photo fallback image to the uploaded IMG_20260208_030749.jpg while keeping the existing file picker behavior.",
+      "id": "REQ-27",
+      "summary": "Update homepage to use IMG_20260208_030749-3.jpg as the default couple photo and render image-1.jpg as a secondary visible photo, both loaded via getAssetUrl without absolute-root paths.",
       "acceptanceCriteria": [
-        "On a fresh load (no user selection), the homepage image area shows `IMG_20260208_030749.jpg`.",
-        "The existing homepage image picker continues to work and can override the default image with a user-selected file."
+        "Before any user file selection, the main homepage couple photo renders from `getAssetUrl('assets/generated/IMG_20260208_030749-3.jpg')` and does not trigger the inline default-image load error.",
+        "`image-1.jpg` is also displayed on the homepage (e.g., as a secondary smaller image or inset) and is loaded via `getAssetUrl('assets/generated/image-1.jpg')`.",
+        "The secondary image placement does not overlap or block the Yes/No buttons at any stage, including after multiple No clicks when the Yes button scales up.",
+        "All homepage references to these default assets use `getAssetUrl(...)` (no `src=\"/assets/...\"` absolute-root paths)."
       ],
       "file_operations": [
         {
           "path": "frontend/src/App.tsx",
           "operation": "modify",
-          "description": "Update the `useClientImagePreview(...)` defaultSrc to `/assets/generated/IMG_20260208_030749.jpg` so the homepage uses the uploaded image as the initial fallback before any user file selection."
-        }
-      ]
-    },
-    {
-      "id": "REQ-18",
-      "summary": "Switch the popup modal fallback image to the uploaded image.jpg while keeping the existing modal file picker behavior.",
-      "acceptanceCriteria": [
-        "When the user clicks “Yes” to open the modal, the modal image area shows `image.jpg` by default.",
-        "The existing modal image picker continues to work and can override the default image with a user-selected file."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/components/ValentineModal.tsx",
-          "operation": "modify",
-          "description": "Update the `useClientImagePreview(...)` defaultSrc to `/assets/generated/image.jpg` so the modal uses the uploaded image as the initial fallback before any user file selection."
+          "description": "Update the `useClientImagePreview(...)` default to `getAssetUrl('assets/generated/IMG_20260208_030749-3.jpg')` and add a secondary, visibly-rendered `<img>` on the homepage using `getAssetUrl('assets/generated/image-1.jpg')`, positioned in the existing layout so it cannot overlap/block the Yes/No buttons (including during Yes-button scale growth). Ensure no absolute-root asset paths are introduced."
         }
       ]
     }

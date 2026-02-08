@@ -1,81 +1,58 @@
 {
   "kind": "build_request",
-  "title": "Use the 2 user-uploaded images as the default homepage and popup images",
+  "title": "Add uploaded photos to public assets and update homepage to load them",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-16",
-      "text": "Add the user-uploaded image files `IMG_20260208_030749.jpg` and `image.jpg` to the frontend static assets folder `frontend/public/assets/generated/` and ensure they are included in the production build output.",
+      "id": "REQ-26",
+      "text": "Add the two newly uploaded image files `IMG_20260208_030749-3.jpg` and `image-1.jpg` to the frontend static assets directory at `frontend/public/assets/generated/` with the exact same filenames (including case and punctuation) so they are included in production builds.",
       "target": "frontend",
       "source": {
         "messageIds": [
           "msg-1"
         ],
         "quotes": [
-          "I need these two images to be in the final page, 1 on the homepage and other on the popup page"
+          "Yes add both these image to the assets folder and update the homepage to load the images"
         ]
       },
       "acceptanceCriteria": [
-        "Both files exist at `frontend/public/assets/generated/IMG_20260208_030749.jpg` and `frontend/public/assets/generated/image.jpg`.",
-        "The app loads these images via `/assets/generated/IMG_20260208_030749.jpg` and `/assets/generated/image.jpg` without going through the backend."
+        "`frontend/public/assets/generated/IMG_20260208_030749-3.jpg` exists in the repo and is served by the app in production.",
+        "`frontend/public/assets/generated/image-1.jpg` exists in the repo and is served by the app in production.",
+        "No backend image serving is introduced; both images are referenced as public static assets."
       ]
     },
     {
-      "id": "REQ-17",
-      "text": "Update the homepage couple-photo default image to use the uploaded image `IMG_20260208_030749.jpg` as the initial (fallback) image shown before any user selects a different image via the homepage file picker.",
+      "id": "REQ-27",
+      "text": "Update the homepage (`frontend/src/App.tsx`) to load and display the newly added images using the existing deployment-safe `getAssetUrl(...)` helper (Vite `BASE_URL` compatible), without using absolute root paths. Use `IMG_20260208_030749-3.jpg` as the homepage couple-photo default/fallback image shown before any user selects a different file, and also render `image-1.jpg` visibly on the homepage as an additional photo element that does not interfere with the Yes/No button interaction or the Yes-button growth behavior.",
       "target": "frontend",
       "source": {
         "messageIds": [
           "msg-1"
         ],
         "quotes": [
-          "I need these two images to be in the final page, 1 on the homepage and other on the popup page"
+          "update the homepage to load the images"
         ]
       },
       "acceptanceCriteria": [
-        "On a fresh load (no user selection), the homepage image area shows `IMG_20260208_030749.jpg`.",
-        "The existing homepage image picker continues to work and can override the default image with a user-selected file."
-      ]
-    },
-    {
-      "id": "REQ-18",
-      "text": "Update the popup modal default image to use the uploaded image `image.jpg` as the initial (fallback) image shown before any user selects a different image via the modal file picker.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-1"
-        ],
-        "quotes": [
-          "I need these two images to be in the final page, 1 on the homepage and other on the popup page"
-        ]
-      },
-      "acceptanceCriteria": [
-        "When the user clicks “Yes” to open the modal, the modal image area shows `image.jpg` by default.",
-        "The existing modal image picker continues to work and can override the default image with a user-selected file."
+        "Before any user file selection, the main homepage couple photo renders from `getAssetUrl('assets/generated/IMG_20260208_030749-3.jpg')` and does not trigger the inline default-image load error.",
+        "`image-1.jpg` is also displayed on the homepage (e.g., as a secondary smaller image or inset) and is loaded via `getAssetUrl('assets/generated/image-1.jpg')`.",
+        "The secondary image placement does not overlap or block the Yes/No buttons at any stage, including after multiple No clicks when the Yes button scales up.",
+        "All homepage references to these default assets use `getAssetUrl(...)` (no `src=\"/assets/...\"` absolute-root paths)."
       ]
     }
   ],
   "constraints": [
     "Frontend immutable paths must not be edited: `frontend/src/hooks/useInternetIdentity.ts`, `frontend/src/hooks/useInternetIdentity.tsx`, `frontend/src/hooks/useActor.ts`, `frontend/src/main.tsx`, and anything under `frontend/src/components/ui`.",
-    "Do not serve images from the backend; images must be referenced as static assets from `frontend/public/assets/generated/`.",
-    "Use English for any user-facing text."
+    "Do not serve images from the backend; images must live under `frontend/public/assets/generated/` and be referenced from the UI.",
+    "Keep the backend as a single Motoko actor; no backend changes are needed for this request."
   ],
   "nonGoals": [
-    "Adding any new backend storage or upload endpoints for images.",
-    "Changing the existing Yes/No interaction behavior, modal message copy, or overall Valentine theme styling beyond what is necessary to swap the default images."
+    "Changing the Valentine modal default image or its asset path (unless required to keep the build passing).",
+    "Adding any backend storage/upload functionality for images.",
+    "Changing the existing Yes/No interaction logic beyond what is necessary to avoid layout interference from the additional homepage image."
   ],
   "imageRequirements": {
     "required": [],
     "edits": []
-  },
-  "userProfileUpdate": {
-    "goalsToAdd": [],
-    "goalsToRemove": [],
-    "preferencesToAdd": [],
-    "preferencesToRemove": [],
-    "miscToAdd": [],
-    "miscToRemove": [],
-    "fieldsToSet": {},
-    "fieldsToDelete": []
   }
 }

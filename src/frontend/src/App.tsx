@@ -2,6 +2,7 @@ import { useState, useRef } from 'react';
 import ValentineModal from './components/ValentineModal';
 import { Heart, Upload } from 'lucide-react';
 import { useClientImagePreview } from './hooks/useClientImagePreview';
+import { getAssetUrl } from './utils/assetUrl';
 
 function App() {
   const [noClickCount, setNoClickCount] = useState(0);
@@ -12,11 +13,12 @@ function App() {
   const { 
     displaySrc, 
     error: imageError, 
-    isLoading, 
+    isLoading,
+    shouldShowImage,
     handleFileSelect,
     handleImageLoadSuccess,
     handleImageLoadError
-  } = useClientImagePreview('/assets/generated/IMG_20260208_030749.jpg');
+  } = useClientImagePreview(getAssetUrl('assets/generated/IMG_20260208_030749-3.jpg'));
 
   const handleNoClick = () => {
     setNoClickCount((prev) => prev + 1);
@@ -69,16 +71,28 @@ function App() {
               </div>
             </div>
 
-            {/* Couple photo with image picker */}
-            <div className="flex justify-center mb-4">
-              <div className="relative group">
-                <img
-                  src={displaySrc}
-                  alt="Our couple photo"
-                  className="w-full max-w-sm h-auto rounded-2xl shadow-xl border-4 border-rose-200 dark:border-rose-700 object-cover"
-                  onLoad={handleImageLoadSuccess}
-                  onError={handleImageLoadError}
-                />
+            {/* Couple photos container */}
+            <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-4">
+              {/* Main couple photo with image picker */}
+              <div className="relative group flex-1">
+                {shouldShowImage ? (
+                  <img
+                    src={displaySrc}
+                    alt="Our couple photo"
+                    className="w-full max-w-sm h-auto rounded-2xl shadow-xl border-4 border-rose-200 dark:border-rose-700 object-cover mx-auto"
+                    onLoad={handleImageLoadSuccess}
+                    onError={handleImageLoadError}
+                  />
+                ) : (
+                  <div className="w-full max-w-sm h-64 rounded-2xl shadow-xl border-4 border-rose-200 dark:border-rose-700 bg-rose-100 dark:bg-rose-800 flex items-center justify-center mx-auto">
+                    <div className="text-center p-6">
+                      <Heart className="w-12 h-12 text-rose-400 mx-auto mb-2" />
+                      <p className="text-sm text-rose-600 dark:text-rose-300">
+                        Image placeholder
+                      </p>
+                    </div>
+                  </div>
+                )}
                 {/* Image picker overlay button */}
                 <button
                   onClick={handleImagePickerClick}
@@ -101,6 +115,15 @@ function App() {
                   onChange={handleFileChange}
                   className="hidden"
                   aria-label="Select image file"
+                />
+              </div>
+
+              {/* Secondary couple photo */}
+              <div className="flex-1">
+                <img
+                  src={getAssetUrl('assets/generated/image-1.jpg')}
+                  alt="Another lovely moment"
+                  className="w-full max-w-sm h-auto rounded-2xl shadow-xl border-4 border-rose-200 dark:border-rose-700 object-cover mx-auto"
                 />
               </div>
             </div>

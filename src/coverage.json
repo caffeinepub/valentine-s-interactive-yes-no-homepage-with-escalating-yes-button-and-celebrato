@@ -1,45 +1,34 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-08T02:44:46.681Z",
+  "generatedAt": "2026-02-08T03:18:40.231Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 3,
-    "implemented": 2,
+    "total": 2,
+    "implemented": 1,
     "items": [
       {
-        "id": "REQ-16",
-        "summary": "Add the user-uploaded image files `IMG_20260208_030749.jpg` and `image.jpg` to the frontend static assets folder `frontend/public/assets/generated/` and ensure they are included in the production build output.",
+        "id": "REQ-26",
+        "summary": "Add the two newly uploaded image files `IMG_20260208_030749-3.jpg` and `image-1.jpg` to the frontend static assets directory at `frontend/public/assets/generated/` with the exact same filenames (including case and punctuation) so they are included in production builds.",
         "status": "missing",
         "plannedFiles": [
-          "frontend/public/assets/generated/IMG_20260208_030749.jpg",
-          "frontend/public/assets/generated/image.jpg"
+          "frontend/public/assets/generated/IMG_20260208_030749-3.jpg",
+          "frontend/public/assets/generated/image-1.jpg"
         ],
         "matchedFiles": []
       },
       {
-        "id": "REQ-17",
-        "summary": "Update the homepage couple-photo default image to use the uploaded image `IMG_20260208_030749.jpg` as the initial (fallback) image shown before any user selects a different image via the homepage file picker.",
+        "id": "REQ-27",
+        "summary": "Update the homepage (`frontend/src/App.tsx`) to load and display the newly added images using the existing deployment-safe `getAssetUrl(...)` helper (Vite `BASE_URL` compatible), without using absolute root paths. Use `IMG_20260208_030749-3.jpg` as the homepage couple-photo default/fallback image shown before any user selects a different file, and also render `image-1.jpg` visibly on the homepage as an additional photo element that does not interfere with the Yes/No button interaction or the Yes-button growth behavior.",
         "status": "implemented",
         "plannedFiles": [
           "frontend/src/App.tsx"
         ],
         "matchedFiles": [
           "frontend/src/App.tsx"
-        ]
-      },
-      {
-        "id": "REQ-18",
-        "summary": "Update the popup modal default image to use the uploaded image `image.jpg` as the initial (fallback) image shown before any user selects a different image via the modal file picker.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/components/ValentineModal.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/components/ValentineModal.tsx"
         ]
       }
     ]
@@ -50,7 +39,6 @@
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
     "frontend/src/App.tsx",
-    "frontend/src/components/ValentineModal.tsx",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

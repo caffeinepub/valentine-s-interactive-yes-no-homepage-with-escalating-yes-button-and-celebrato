@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 15,
+  "projectStateVersion": 23,
   "summary": "Valentine’s website for Jishone to ask Annammooo to be his valentine, featuring an interactive Yes/No prompt that escalates until Yes is chosen, then shows a popup with a custom image and romantic message; also support adding a custom image on the second response page via client-side image selection.",
   "architectural_notes": [
     "Single-page Valentine website with interactive button logic and modal popup on success.",
@@ -13,9 +13,12 @@
     "Final page must include two specific images: one displayed on the homepage and a different one displayed in the success popup/modal (both referenced from frontend static assets, no backend image serving)."
   ],
   "known_issues": [
-    "User-selected/uploaded image sometimes does not appear; UI shows a random/default fallback image instead."
+    "User-selected/uploaded image sometimes does not appear; UI shows a random/default fallback image instead.",
+    "Displayed image shows a “failed to load” error (likely broken/missing static asset path or build output not including the image).",
+    "Build/deploy pipeline hit a configuration problem (Caffeine) when attempting to apply the image asset fix; retry requested.",
+    "Deployed build still shows “default image cannot be loaded” on the first page (default asset load failing in production)."
   ],
-  "isFixRequest": false,
+  "isFixRequest": true,
   "existing_features": [
     {
       "id": "feature-create-a-single-page-valentine-s-website-homepage-that-displays-the-question-text-annammooo-will-you-be-my-valentine-with-two-buttons-yes-and-no",
@@ -152,6 +155,46 @@
         "REQ-18"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-ensure-the-default-static-images-used-by-the-homepage-couple-photo-and-the-success-modal-load-successfully-in-production-by-verifying-the-files-exist-under-frontend-public-assets-generated-with-the-exact-filenames-and-by-referencing-them-in-a-deployment-safe-way-works-even-when-the-app-is-served-from-a-non-root-base-path",
+      "title": "Ensure the default static images used by the homepage couple-photo and the success modal load successfully in production by verifying the files exist under `frontend/public/assets/generated/` with the exact filenames and by referencing them in a deployment-safe way (works even when the app is served from a non-root base path).",
+      "reqIds": [
+        "REQ-19"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-client-side-image-load-error-handling-so-the-inline-error-message-is-accurate-for-the-failure-scenario-default-asset-failing-vs-user-selected-image-failing-and-provides-clear-english-guidance-without-incorrectly-blaming-the-user-s-selected-image-when-the-default-asset-is-missing-broken",
+      "title": "Update client-side image load error handling so the inline error message is accurate for the failure scenario (default asset failing vs. user-selected image failing) and provides clear English guidance without incorrectly blaming the user’s selected image when the default asset is missing/broken.",
+      "reqIds": [
+        "REQ-20"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-verify-that-the-homepage-and-modal-continue-to-reference-the-default-images-using-the-deployment-safe-asset-url-builder-vite-base-url-and-do-not-introduce-absolute-root-paths-for-these-assets",
+      "title": "Verify that the homepage and modal continue to reference the default images using the deployment-safe asset URL builder (Vite `BASE_URL`) and do not introduce absolute-root paths for these assets.",
+      "reqIds": [
+        "REQ-22"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-homepage-first-page-default-couple-photo-the-initial-fallback-shown-before-any-user-selects-a-different-image-via-the-homepage-file-picker-to-use-assets-generated-img-20260208-030749-1-jpg-instead-of-the-current-default-assets-generated-couple-photo-dim-1200x1200-jpg-while-continuing-to-build-the-url-using-the-existing-getasseturl-helper",
+      "title": "Update the homepage (first page) default couple photo (the initial fallback shown before any user selects a different image via the homepage file picker) to use `assets/generated/IMG_20260208_030749-1.jpg` instead of the current default (`assets/generated/couple-photo.dim_1200x1200.jpg`), while continuing to build the URL using the existing `getAssetUrl` helper.",
+      "reqIds": [
+        "REQ-25"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-homepage-frontend-src-app-tsx-to-load-and-display-the-newly-added-images-using-the-existing-deployment-safe-getasseturl-helper-vite-base-url-compatible-without-using-absolute-root-paths-use-img-20260208-030749-3-jpg-as-the-homepage-couple-photo-default-fallback-image-shown-before-any-user-selects-a-different-file-and-also-render-image-1-jpg-visibly-on-the-homepage-as-an-additional-photo-element-that-does-not-interfere-with-the-yes-no-button-interaction-or-the-yes-button-growth-behavior",
+      "title": "Update the homepage (`frontend/src/App.tsx`) to load and display the newly added images using the existing deployment-safe `getAssetUrl(...)` helper (Vite `BASE_URL` compatible), without using absolute root paths. Use `IMG_20260208_030749-3.jpg` as the homepage couple-photo default/fallback image shown before any user selects a different file, and also render `image-1.jpg` visibly on the homepage as an additional photo element that does not interfere with the Yes/No button interaction or the Yes-button growth behavior.",
+      "reqIds": [
+        "REQ-27"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -202,6 +245,44 @@
       "summary": "Add the user-uploaded image files `IMG_20260208_030749.jpg` and `image.jpg` to the frontend static assets folder `frontend/public/assets/generated/` and ensure they are included in the production build output.",
       "reqIds": [
         "REQ-16"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-9",
+      "summary": "Add the two missing default static image files to the frontend public assets folder so they exist at build time and can be loaded in production exactly at these paths: `frontend/public/assets/generated/IMG_20260208_030749.jpg` and `frontend/public/assets/generated/image.jpg`.",
+      "reqIds": [
+        "REQ-21"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-11",
+      "summary": "Re-run the build and deployment after applying the asset fix, and confirm the user-visible inline error text for missing defaults does not appear when the defaults are present.",
+      "reqIds": [
+        "REQ-23"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-12",
+      "summary": "Replace the homepage (first page) default picture with the user-provided image so it shows on the first page",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-13",
+      "summary": "Add the uploaded images `IMG_20260208_030749-1.jpg` and `IMG_20260208_030749-2.jpg` to the frontend static assets directory `frontend/public/assets/generated/` so they are included in production builds and can be referenced via the existing deployment-safe asset URL helper.",
+      "reqIds": [
+        "REQ-24"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-14",
+      "summary": "Add the two newly uploaded image files `IMG_20260208_030749-3.jpg` and `image-1.jpg` to the frontend static assets directory at `frontend/public/assets/generated/` with the exact same filenames (including case and punctuation) so they are included in production builds.",
+      "reqIds": [
+        "REQ-26"
       ],
       "status": "pending"
     }

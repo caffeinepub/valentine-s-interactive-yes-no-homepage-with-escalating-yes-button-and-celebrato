@@ -5,6 +5,7 @@ interface UseClientImagePreviewReturn {
   error: string | null;
   isLoading: boolean;
   hasUserSelection: boolean;
+  shouldShowImage: boolean;
   handleFileSelect: (file: File | null) => void;
   handleImageLoadSuccess: () => void;
   handleImageLoadError: () => void;
@@ -16,6 +17,7 @@ export function useClientImagePreview(defaultSrc: string): UseClientImagePreview
   const [lastGoodPreviewSrc, setLastGoodPreviewSrc] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [defaultImageFailed, setDefaultImageFailed] = useState(false);
   
   // Track the current selection token to prevent stale reads
   const selectionTokenRef = useRef(0);
@@ -79,6 +81,7 @@ export function useClientImagePreview(defaultSrc: string): UseClientImagePreview
       if (typeof result === 'string') {
         setUserPreviewSrc(result);
         setError(null);
+        setDefaultImageFailed(false);
       } else {
         setError('Unable to preview the selected image. Please try another file.');
       }
@@ -95,7 +98,6 @@ export function useClientImagePreview(defaultSrc: string): UseClientImagePreview
       setIsLoading(false);
     };
 
-    // Abort any in-flight read (FileReader doesn't support abort directly, but token handles it)
     // Read the file as data URL
     reader.readAsDataURL(file);
   }, []);
@@ -105,13 +107,25 @@ export function useClientImagePreview(defaultSrc: string): UseClientImagePreview
     if (userPreviewSrc) {
       setLastGoodPreviewSrc(userPreviewSrc);
       setError(null);
+      setDefaultImageFailed(false);
+    } else {
+      // Default image loaded successfully
+      setDefaultImageFailed(false);
+      setError(null);
     }
   }, [userPreviewSrc]);
 
   const handleImageLoadError = useCallback(() => {
-    // When image fails to load, show error but keep last known good preview
-    setError('Failed to load the selected image. Please try another file.');
-  }, []);
+    // Determine if this is a default image failure or user-selected image failure
+    if (userPreviewSrc) {
+      // User-selected image failed
+      setError('Failed to load the selected image. Please try another file.');
+    } else {
+      // Default image failed
+      setDefaultImageFailed(true);
+      setError('Default image could not be loaded.');
+    }
+  }, [userPreviewSrc]);
 
   const clearPreview = useCallback(() => {
     // Revoke object URL if it exists
@@ -124,20 +138,23 @@ export function useClientImagePreview(defaultSrc: string): UseClientImagePreview
     setLastGoodPreviewSrc(null);
     setError(null);
     setIsLoading(false);
+    setDefaultImageFailed(false);
     selectionTokenRef.current += 1;
   }, []);
 
-  // Determine what to display:
-  // 1. If user has selected an image, show it (or last known good if current failed)
-  // 2. Otherwise show default
+  // Determine which source to display
   const displaySrc = userPreviewSrc || lastGoodPreviewSrc || defaultSrc;
   const hasUserSelection = userPreviewSrc !== null || lastGoodPreviewSrc !== null;
+  
+  // Determine if we should show the image or a fallback
+  const shouldShowImage = !defaultImageFailed || hasUserSelection;
 
   return {
     displaySrc,
     error,
     isLoading,
     hasUserSelection,
+    shouldShowImage,
     handleFileSelect,
     handleImageLoadSuccess,
     handleImageLoadError,
